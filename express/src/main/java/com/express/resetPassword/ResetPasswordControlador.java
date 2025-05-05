@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.UnsupportedEncodingException;
+import java.util.random.RandomGenerator;
 
 public class ResetPasswordControlador {
- /*   @Autowired
+   @Autowired
     UsuarioServiceImp usuarioImp;
 
     @Autowired
@@ -33,17 +34,18 @@ public class ResetPasswordControlador {
 
     /*+++ recuperar contraseña +++*/
 
-   /* @GetMapping("/recontrasenia")
+    @GetMapping("/recontrasenia")
     public String cambiarcontraseña(Model model) {
 
         model.addAttribute("titulo","olvido contraseña ");
         return "correocontrase";
 
     }
-
+/*
     @PostMapping("/forgot_password")
     public String procesorecuperarcontra(HttpServletRequest request, Model model) {
         String correo = request.getParameter("email");
+        String Token = RandomGenerator.getDefault();
         String token = RandomString.make(45);
 
         System.out.println("email:" + correo);
@@ -70,7 +72,7 @@ public class ResetPasswordControlador {
         model.addAttribute("titulo","olvido contraseña ");
         return "correocontrase";
     }
-
+*/
 
     private void sendEmail(String correo, String resetPasswordLink) throws UnsupportedEncodingException, MessagingException {
         MimeMessage mensaje = mailsender.createMimeMessage();
@@ -90,7 +92,6 @@ public class ResetPasswordControlador {
         helper.setSubject(Subject);
         helper.setText(content, true);
         mailsender.send(mensaje);
-
     }
 
     @GetMapping("/reset_password")
@@ -124,5 +125,5 @@ public class ResetPasswordControlador {
         }
         return "index";
     }
-*/
+
 }

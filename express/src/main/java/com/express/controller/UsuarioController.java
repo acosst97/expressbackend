@@ -1,19 +1,21 @@
 package com.express.controller;
 
+import com.express.dto.ListarUsuarioDto;
 import com.express.dto.LoginUsuarioDTO;
 import com.express.dto.MensajeDTO;
 import com.express.dto.RegistroUsuarioDto;
+import com.express.imp.RolImp;
+import com.express.model.Rol;
 import com.express.model.Usuario;
 import com.express.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,7 +23,8 @@ import java.util.Map;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
-
+    @Autowired
+    RolImp rolImp;
     @PostMapping("/registro")
     public ResponseEntity<Usuario> registrarUsuario(@RequestBody RegistroUsuarioDto registroUsuarioDTO){
         Usuario nuevoUsuario = usuarioService.registrarUsuario(registroUsuarioDTO);
@@ -38,6 +41,15 @@ public class UsuarioController {
             // Opción 2 (si usas DTO):
              return new ResponseEntity<>(new MensajeDTO("Correo o contraseña incorrectos"), HttpStatus.UNAUTHORIZED);
         }
+  }
+    @GetMapping("/listar")
+    public ResponseEntity<List<ListarUsuarioDto>> listarUsuarios() {
+        List<ListarUsuarioDto> usuarios = usuarioService.listarUsuarios();
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
+
+
+
+
 
 }

@@ -11,7 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="reservaciones")
-public class Reservacion {
+public class
+Reservacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReservaciones;

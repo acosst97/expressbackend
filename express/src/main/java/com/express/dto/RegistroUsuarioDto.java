@@ -66,4 +66,6 @@ public class RegistroUsuarioDto {
     public String getPassword() {
         return password;
     }
+
+
 }

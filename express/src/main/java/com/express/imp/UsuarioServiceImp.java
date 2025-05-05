@@ -1,12 +1,20 @@
 package com.express.imp;
 
+import com.express.dto.ListarUsuarioDto;
 import com.express.dto.RegistroUsuarioDto;
+import com.express.model.Rol;
 import com.express.model.Usuario;
+import com.express.repository.RolRepository;
 import com.express.repository.UsuarioRepository;
+import com.express.resetPassword.UsuarioNotFoundException;
 import com.express.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServiceImp implements UsuarioService {
@@ -15,6 +23,9 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RolRepository rolRepository;
 
     @Override
     public Usuario registrarUsuario(RegistroUsuarioDto registroUsuarioDTO) {
@@ -28,8 +39,26 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setTelefono(registroUsuarioDTO.getTelefono());
         usuario.setCorreo(registroUsuarioDTO.getCorreo());
         usuario.setPassword(passwordEncoder.encode(registroUsuarioDTO.getPassword()));
+        Optional<Rol> rolClienteOptional = rolRepository.findById(3);
+        if (rolClienteOptional.isPresent()) {
+            Rol rolCliente = rolClienteOptional.get();
+            usuario.setRol(List.of(rolCliente));
+        } else {
+            throw new RuntimeException("Error: El rol 'CLIENTE' no fue encontrado.");
+        }
         return usuarioRepository.save(usuario);
+
+
     }
+
+    @Override
+    public List<ListarUsuarioDto> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream()
+                .map(ListarUsuarioDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public Usuario validarUsuario(String correo, String password) {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
@@ -37,5 +66,51 @@ public class UsuarioServiceImp implements UsuarioService {
             return usuario;
         }
         return  null;
+    }
+   //Crud
+
+
+    @Override
+    public void actualizarUsuario(Usuario usuario) {
+
+    }
+
+    @Override
+    public void eliminarUsuario(Usuario usuario) {
+
+    }
+
+    @Override
+    public Usuario buscarBYId(Integer idusuario) {
+        return null;
+    }
+
+    public void updateResetPassword(String token, String correo) throws UsuarioNotFoundException {
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+
+        if (usuario != null) {
+            usuario.setResetPasswordToken(token);
+            usuarioRepository.save(usuario);
+        }else{
+            throw new UsuarioNotFoundException("No se pudo enviar no se reconoce correo " + correo);
+        }
+    }
+
+
+
+    public Usuario getByResetPasswordToken(String token) {
+
+        return usuarioRepository.findByResetPasswordToken(token);
+
+    }
+
+
+    public void updatePassword(Usuario usuario,String newPassword) {
+
+        BCryptPasswordEncoder  passwordEncoder = new BCryptPasswordEncoder();
+        String encodedpassword = passwordEncoder.encode(newPassword);
+        usuario.setPassword(encodedpassword);
+        usuario.setResetPasswordToken(null);
+        usuarioRepository.save(usuario);
     }
 }

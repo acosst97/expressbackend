@@ -18,14 +18,11 @@ public class EnviarEmailImp {
     private JavaMailSender javamailsender;
 
     public void enviaremail(String from, String to, String subject, String body) {
-
         SimpleMailMessage mimensaje = new SimpleMailMessage();
-
         mimensaje.setFrom(from);
         mimensaje.setTo(to);
         mimensaje.setSubject(subject);
         mimensaje.setText(body);
-
         javamailsender.send(mimensaje);
 
     }
@@ -33,13 +30,8 @@ public class EnviarEmailImp {
     public void enviaremail2( String to,String body ) {
 
         SimpleMailMessage mimensaje = new SimpleMailMessage();
-
-
         mimensaje.setTo(to);
         mimensaje.setText(body);
-
-
-
         javamailsender.send(mimensaje);
 
     }

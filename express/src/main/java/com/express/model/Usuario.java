@@ -43,6 +43,8 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     private List<Reservacion> reservaciones;
+
+
     public int getIdUsuario() {
         return idUsuario;
     }

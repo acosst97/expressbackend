@@ -11,13 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="reservaciones")
-public class
-Reservacion {
+public class Reservacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReservaciones;
     private String detallePago;
-    private Double valorPago;
+    private String  valorPago;
     private String fechaReserva;
     private String fechaViaje;
 

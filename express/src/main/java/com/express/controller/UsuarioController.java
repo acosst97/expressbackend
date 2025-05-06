@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -47,9 +48,6 @@ public class UsuarioController {
         List<ListarUsuarioDto> usuarios = usuarioService.listarUsuarios();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
-
-
-
 
 
 }

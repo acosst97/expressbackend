@@ -11,4 +11,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     /*recuperacion de contraseña*/
 
     public Usuario findByResetPasswordToken(String token);
+
 }

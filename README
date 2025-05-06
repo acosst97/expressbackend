@@ -1,0 +1,47 @@
+Login ingreso al dash Board
+POST  http://localhost:8080/usuarios/login
+
+{
+    "correo": "harvinacosta36@gmail.com",
+    "password": "Contra1234"
+}
+
+registro
+POST http://localhost:8080/usuarios/registro
+{
+    "primerNombre": "Harvin",
+    "segundoNombre": "Duviel",
+    "primerApellido": "Acosta",
+    "segApellido": "Trivinio",
+    "fechaNacimiento": "2000-01-15",
+    "experiencia": 5,
+    "telefono": "3223975992",
+    "correo": "harvinAcossta36@example.com",
+    "password": "contrasena123"
+}
+
+
+validar contraseña  por token
+get http://localhost:8080/auth/reset-password?token=2651b556-1b02-41f5-9654-ea3ca962a8bc
+
+
+Solicitar  Contraseña
+POST  http://localhost:8080/auth/solicitar-recuperacion
+
+{
+    "correo": "harvinacosta36@gmail.com"
+}
+
+
+//CONFIRMAR REST PASSWORD
+POST http://localhost:8080/auth/reset-password
+{
+    "token": "bff47c1a-b2cd-49cf-9347-3b2d1949e334",
+    "nuevaContrasena": "Contra1234"
+}
+
+
+
+
+
+

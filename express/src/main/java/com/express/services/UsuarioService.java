@@ -19,4 +19,6 @@ public interface UsuarioService {
 
     Usuario buscarBYId(Integer idusuario);
 
+
+
 }

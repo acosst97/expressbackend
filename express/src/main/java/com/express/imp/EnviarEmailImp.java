@@ -15,16 +15,15 @@ import java.util.logging.Logger;
 @Service
 public class EnviarEmailImp {
     @Autowired
-    private JavaMailSender javamailsender;
+    private JavaMailSender javaMailSender;
 
-    public void enviaremail(String from, String to, String subject, String body) {
+    public void enviarEmail(String from, String to, String subject, String body) {
         SimpleMailMessage mimensaje = new SimpleMailMessage();
         mimensaje.setFrom(from);
         mimensaje.setTo(to);
         mimensaje.setSubject(subject);
         mimensaje.setText(body);
-        javamailsender.send(mimensaje);
-
+        javaMailSender.send(mimensaje);
     }
 
     public void enviaremail2( String to,String body ) {
@@ -32,7 +31,7 @@ public class EnviarEmailImp {
         SimpleMailMessage mimensaje = new SimpleMailMessage();
         mimensaje.setTo(to);
         mimensaje.setText(body);
-        javamailsender.send(mimensaje);
+        javaMailSender.send(mimensaje);
 
     }
 

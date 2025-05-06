@@ -6,7 +6,7 @@ import com.express.model.Rol;
 import com.express.model.Usuario;
 import com.express.repository.RolRepository;
 import com.express.repository.UsuarioRepository;
-import com.express.resetPassword.UsuarioNotFoundException;
+
 import com.express.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -69,7 +69,6 @@ public class UsuarioServiceImp implements UsuarioService {
     }
    //Crud
 
-
     @Override
     public void actualizarUsuario(Usuario usuario) {
 
@@ -85,32 +84,7 @@ public class UsuarioServiceImp implements UsuarioService {
         return null;
     }
 
-    public void updateResetPassword(String token, String correo) throws UsuarioNotFoundException {
-        Usuario usuario = usuarioRepository.findByCorreo(correo);
-
-        if (usuario != null) {
-            usuario.setResetPasswordToken(token);
-            usuarioRepository.save(usuario);
-        }else{
-            throw new UsuarioNotFoundException("No se pudo enviar no se reconoce correo " + correo);
-        }
-    }
 
 
 
-    public Usuario getByResetPasswordToken(String token) {
-
-        return usuarioRepository.findByResetPasswordToken(token);
-
-    }
-
-
-    public void updatePassword(Usuario usuario,String newPassword) {
-
-        BCryptPasswordEncoder  passwordEncoder = new BCryptPasswordEncoder();
-        String encodedpassword = passwordEncoder.encode(newPassword);
-        usuario.setPassword(encodedpassword);
-        usuario.setResetPasswordToken(null);
-        usuarioRepository.save(usuario);
-    }
 }

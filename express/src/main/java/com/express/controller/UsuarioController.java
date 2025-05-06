@@ -1,9 +1,6 @@
 package com.express.controller;
 
-import com.express.dto.ListarUsuarioDto;
-import com.express.dto.LoginUsuarioDTO;
-import com.express.dto.MensajeDTO;
-import com.express.dto.RegistroUsuarioDto;
+import com.express.dto.*;
 import com.express.imp.RolImp;
 import com.express.model.Rol;
 import com.express.model.Usuario;
@@ -20,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin
+
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -38,8 +35,6 @@ public class UsuarioController {
         if (usuarioValidado != null) {
             return new ResponseEntity<>(usuarioValidado, HttpStatus.OK);
         } else {
-
-            // Opción 2 (si usas DTO):
              return new ResponseEntity<>(new MensajeDTO("Correo o contraseña incorrectos"), HttpStatus.UNAUTHORIZED);
         }
   }
@@ -49,5 +44,10 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
+
+   /*
+
+
+*/
 
 }

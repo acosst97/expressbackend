@@ -1,18 +1,12 @@
-package com.express.model;
+package com.express.dto.serviciosDto;
 
-import jakarta.persistence.*;
+public class ListarServicioVehiculoDto {
 
-@Entity
-@Table(name ="servicio_vehiculo")
-public class ServicioVehiculos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idServicio;
     private String nombreServicio;
     private String valorServicio;
     private String descripcion;
-    private String images;
-
+   private String images;
     public int getIdServicio() {
         return idServicio;
     }
@@ -52,4 +46,13 @@ public class ServicioVehiculos {
     public void setImages(String images) {
         this.images = images;
     }
+
+    public ListarServicioVehiculoDto(int idServicio, String nombreServicio, String valorServicio, String descripcion, String images) {
+        this.idServicio = idServicio;
+        this.nombreServicio = nombreServicio;
+        this.valorServicio = valorServicio;
+        this.descripcion = descripcion;
+        this.images = images;
+    }
+
 }

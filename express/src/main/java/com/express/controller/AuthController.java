@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
+
 public class AuthController {
     @Autowired
     private UsuarioRepository usuarioRepository;

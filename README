@@ -40,6 +40,28 @@ POST http://localhost:8080/auth/reset-password
     "nuevaContrasena": "Contra1234"
 }
 
+//Clases de serviciosVehiculos
+Listar Servcios
+Gett http://localhost:8080/services/listarVehiculos
+
+Crear Servicios
+Post http://localhost:8080/services/registerServiciosVehiculos
+
+{
+"nombreServicio": "FRANCIA",
+"valorServicio": "164000",
+"descripcion": "PRUEBA 2 cREACION"
+
+}
+
+
+Eliminar Servicio
+DELETE http://localhost:8080/services/6
+
+
+
+
+
 
 
 

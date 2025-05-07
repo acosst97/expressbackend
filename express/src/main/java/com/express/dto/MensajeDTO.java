@@ -1,5 +1,9 @@
 package com.express.dto;
 
+import com.express.dto.serviciosDto.ListarServicioVehiculoDto;
+
+import java.util.List;
+
 public class MensajeDTO {
     private String mensaje;
 

@@ -17,9 +17,9 @@ public class Rol {
     private int idRol;
 
     private String nombreRol;
-    @ManyToOne
-    @JoinColumn(name = "usuario_idusuario")// Nombre de la columna de clave foránea en la tabla usuario
-    private Usuario usuario;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
 
 
     public int getIdRol() {
@@ -38,13 +38,11 @@ public class Rol {
         this.nombreRol = nombreRol;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
-
-
 }

@@ -13,8 +13,6 @@ public class ListaVehiculos {
     private String seguroVig;
     private String modelo;
 
-    public List<Vehiculo> listarVehiculos(){
-        return  null;
-    }
+
 
 }

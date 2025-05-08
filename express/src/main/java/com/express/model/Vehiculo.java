@@ -93,14 +93,5 @@ public class Vehiculo {
         this.reservacion = reservacion;
     }
 
-    public Vehiculo(int idVehiculo, int capacidad, String documentacion, String placaVehiculo, String seguroVig, String modelo, Usuario usuario, Reservacion reservacion) {
-        this.idVehiculo = idVehiculo;
-        Capacidad = capacidad;
-        this.documentacion = documentacion;
-        this.placaVehiculo = placaVehiculo;
-        this.seguroVig = seguroVig;
-        this.modelo = modelo;
-        this.usuario = usuario;
-        this.reservacion = reservacion;
-    }
+
 }

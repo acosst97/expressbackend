@@ -26,7 +26,7 @@ public class ListarUsuarioDto {
         this.primerApellido = usuario.getPrimerApellido();
         this.segApellido = usuario.getSegApellido();
         this.correo = usuario.getCorreo();
-        this.nombresRoles = usuario.getRol().stream()
+        this.nombresRoles = usuario.getRoles().stream()
                 .map(Rol::getNombreRol)
                 .collect(Collectors.toList());
     }

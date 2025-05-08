@@ -32,8 +32,13 @@ public class Usuario {
     @Column(name="reset_password_token")
     private String resetPasswordToken;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Rol> rol;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "usuario_has_rol",
+            joinColumns = { @JoinColumn(name = "usuario_id_usuario") },
+            inverseJoinColumns = { @JoinColumn(name = "_id_rol") }
+    )
+    private List<Rol> roles;
 
     @OneToMany(mappedBy = "usuario")
     private List<Cargo> cargos;
@@ -125,12 +130,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public List<Rol> getRol() {
-        return rol;
+    public List<Rol> getRoles() {
+        return roles;
     }
 
-    public void setRol(List<Rol> rol) {
-        this.rol = rol;
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 
     public List<Cargo> getCargos() {

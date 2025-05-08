@@ -8,6 +8,7 @@ import com.express.repository.RolRepository;
 import com.express.repository.UsuarioRepository;
 
 import com.express.services.UsuarioService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class UsuarioServiceImp implements UsuarioService {
     @Autowired
     private RolRepository rolRepository;
 
-    @Override
+    @Transactional
     public Usuario registrarUsuario(RegistroUsuarioDto registroUsuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setPrimerNombre(registroUsuarioDTO.getPrimerNombre());
@@ -39,16 +40,17 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setTelefono(registroUsuarioDTO.getTelefono());
         usuario.setCorreo(registroUsuarioDTO.getCorreo());
         usuario.setPassword(passwordEncoder.encode(registroUsuarioDTO.getPassword()));
+
+        // Obtener el rol por defecto (asumo que tienes un ID para el rol por defecto, por ejemplo, 3 para 'CLIENTE')
         Optional<Rol> rolClienteOptional = rolRepository.findById(3);
         if (rolClienteOptional.isPresent()) {
             Rol rolCliente = rolClienteOptional.get();
-            usuario.setRol(List.of(rolCliente));
+            usuario.setRoles(List.of(rolCliente)); // Asigna la lista de roles al usuario
         } else {
-            throw new RuntimeException("Error: El rol 'CLIENTE' no fue encontrado.");
+            throw new RuntimeException("Error: El rol con ID 3 no fue encontrado.");
         }
+
         return usuarioRepository.save(usuario);
-
-
     }
 
     @Override

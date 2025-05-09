@@ -31,6 +31,7 @@ public class UsuarioServiceImp implements UsuarioService {
     @Transactional
     public Usuario registrarUsuario(RegistroUsuarioDto registroUsuarioDTO) {
         Usuario usuario = new Usuario();
+        usuario.setDocumento(registroUsuarioDTO.getDocumento());
         usuario.setPrimerNombre(registroUsuarioDTO.getPrimerNombre());
         usuario.setSegundoNombre(registroUsuarioDTO.getSegundoNombre());
         usuario.setPrimerApellido(registroUsuarioDTO.getPrimerApellido());
@@ -41,7 +42,7 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setCorreo(registroUsuarioDTO.getCorreo());
         usuario.setPassword(passwordEncoder.encode(registroUsuarioDTO.getPassword()));
 
-        // Obtener el rol por defecto (asumo que tienes un ID para el rol por defecto, por ejemplo, 3 para 'CLIENTE')
+        // Obtener el rol por defecto ()
         Optional<Rol> rolClienteOptional = rolRepository.findById(3);
         if (rolClienteOptional.isPresent()) {
             Rol rolCliente = rolClienteOptional.get();
@@ -49,7 +50,6 @@ public class UsuarioServiceImp implements UsuarioService {
         } else {
             throw new RuntimeException("Error: El rol con ID 3 no fue encontrado.");
         }
-
         return usuarioRepository.save(usuario);
     }
 

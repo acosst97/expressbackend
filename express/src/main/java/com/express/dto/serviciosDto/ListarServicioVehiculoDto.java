@@ -1,5 +1,8 @@
 package com.express.dto.serviciosDto;
 
+import com.express.model.ServicioVehiculos;
+import com.express.model.Vehiculo;
+
 public class ListarServicioVehiculoDto {
 
     private int idServicio;
@@ -47,12 +50,12 @@ public class ListarServicioVehiculoDto {
         this.images = images;
     }
 
-    public ListarServicioVehiculoDto(int idServicio, String nombreServicio, String valorServicio, String descripcion, String images) {
-        this.idServicio = idServicio;
-        this.nombreServicio = nombreServicio;
-        this.valorServicio = valorServicio;
-        this.descripcion = descripcion;
-        this.images = images;
+    public ListarServicioVehiculoDto(ServicioVehiculos servicioVehiculos) {
+        this.idServicio = servicioVehiculos.getIdServicio();
+        this.nombreServicio = servicioVehiculos.getNombreServicio();
+        this.valorServicio = servicioVehiculos.getValorServicio();
+        this.descripcion = servicioVehiculos.getDescripcion();
+        this.images = servicioVehiculos.getImages();
     }
 
 }

@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/services")
@@ -21,12 +23,17 @@ public class ServicioVehiculoController {
     @Autowired
    private ServicioVehiculoService srv;
     @GetMapping("/listarVehiculos")
-    public ResponseEntity<Object> listarServicios() {
+    public ResponseEntity<?> listarServicios() {
         List<ListarServicioVehiculoDto> servicios = srv.listarServiciosVehiculos();
-        if (servicios != null && !servicios.isEmpty()) {
-            return new ResponseEntity<>(servicios, HttpStatus.OK);
+        if (servicios == null || servicios.isEmpty()) {
+            return new ResponseEntity<>(new MensajeDTO("No hay servicios para mostrar."), HttpStatus.OK);
+
         } else {
-            return new ResponseEntity<>(new MensajeDTO("No se encontraron servicios."), HttpStatus.NOT_FOUND);
+            Map<String, Object> response = new HashMap<>();
+            response.put("mensaje", "Lista de Servicios obtenida exitosamente.");
+            response.put("servicios", servicios);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
         }
     }
 

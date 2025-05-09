@@ -18,6 +18,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idUsuario")
     private int idUsuario;
+    private String documento;
     @Column(name="primerNombre")
     private String primerNombre;
     @Column(name="segundoNombre")
@@ -56,6 +57,14 @@ public class Usuario {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getPrimerNombre() {

@@ -60,6 +60,25 @@ DELETE http://localhost:8080/services/6
 
 
 
+//----------     RESERVACIONES   ------------------
+lISTAR Reservaciones
+GET http://localhost:8080/reservarciones/lstReservaciones
+
+
+/Registrar
+POST http://localhost:8080/reservarciones/registrarReservacion
+{
+  "detallePago": "Pago con tarjeta de crédito",
+  "valorPago": "50.00",
+  "fechaReserva": "2025-05-15",
+  "fechaViaje": "2025-05-20",
+  "documentoUsuario": "1012415454"
+}
+Eliminar
+
+DELETE http://localhost:8080/reservarciones/2
+
+
 
 
 

@@ -29,4 +29,68 @@ public class Reservacion {
 
     @OneToOne(mappedBy = "reservacion") // Indica que la relación ya está gestionada por el atributo 'reservacion' en Ruta
     private Ruta ruta;
+
+    public int getIdReservaciones() {
+        return idReservaciones;
+    }
+
+    public void setIdReservaciones(int idReservaciones) {
+        this.idReservaciones = idReservaciones;
+    }
+
+    public String getDetallePago() {
+        return detallePago;
+    }
+
+    public void setDetallePago(String detallePago) {
+        this.detallePago = detallePago;
+    }
+
+    public String getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(String valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public String getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(String fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public String getFechaViaje() {
+        return fechaViaje;
+    }
+
+    public void setFechaViaje(String fechaViaje) {
+        this.fechaViaje = fechaViaje;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Vehiculo> getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(List<Vehiculo> vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public Ruta getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
+    }
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Data
 public class RegistroUsuarioDto {
-
+    private String documento;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -29,6 +29,14 @@ public class RegistroUsuarioDto {
         this.telefono = telefono;
         this.correo = correo;
         this.password = password;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getPrimerNombre() {

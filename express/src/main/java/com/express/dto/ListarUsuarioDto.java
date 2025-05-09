@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Setter
 public class ListarUsuarioDto {
     private Integer idUsuario;
+    private String documento;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -21,6 +22,7 @@ public class ListarUsuarioDto {
     private Rol rol;
     public ListarUsuarioDto(Usuario usuario) {
         this.idUsuario = usuario.getIdUsuario();
+        this.documento  = usuario.getDocumento();
         this.primerNombre = usuario.getPrimerNombre();
         this.segundoNombre = usuario.getSegundoNombre();
         this.primerApellido = usuario.getPrimerApellido();
@@ -32,17 +34,6 @@ public class ListarUsuarioDto {
     }
   //  private RolDto rol;
 
-
-    public ListarUsuarioDto(Integer idUsuario, String primerNombre, String segundoNombre, String primerApellido, String segApellido, String correo, List<String> nombresRoles, Rol rol) {
-        this.idUsuario = idUsuario;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segApellido = segApellido;
-        this.correo = correo;
-        this.nombresRoles = nombresRoles;
-        this.rol = rol;
-    }
 
     public Integer getIdUsuario() {
         return idUsuario;

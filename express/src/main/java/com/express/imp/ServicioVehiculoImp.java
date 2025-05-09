@@ -22,13 +22,7 @@ public class ServicioVehiculoImp implements ServicioVehiculoService {
     public List<ListarServicioVehiculoDto> listarServiciosVehiculos() {
         List<ServicioVehiculos> servicios = servicioVehiculoRepository.findAll();
         return servicios.stream()
-                .map(servicio -> new ListarServicioVehiculoDto(
-                        servicio.getIdServicio(),
-                        servicio.getNombreServicio(),
-                        servicio.getValorServicio().toString(),
-                        servicio.getDescripcion(),
-                        servicio.getImages()
-                ))
+                .map(ListarServicioVehiculoDto::new)
                 .collect(Collectors.toList());
     }
     @Override

@@ -19,7 +19,7 @@ public class RegistroReservacionesDto {
        this.valorPago = valorPago;
        this.fechaReserva = fechaReserva;
        this.fechaViaje = fechaViaje;
-        this.documentoUsuario = documentoUsuario;
+       this.documentoUsuario = documentoUsuario;
     }
 
     public String getDetallePago() {

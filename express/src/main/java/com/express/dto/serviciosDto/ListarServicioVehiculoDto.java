@@ -10,6 +10,13 @@ public class ListarServicioVehiculoDto {
     private String valorServicio;
     private String descripcion;
    private String images;
+    public ListarServicioVehiculoDto(ServicioVehiculos servicioVehiculos) {
+        this.idServicio = servicioVehiculos.getIdServicio();
+        this.nombreServicio = servicioVehiculos.getNombreServicio();
+        this.valorServicio = servicioVehiculos.getValorServicio();
+        this.descripcion = servicioVehiculos.getDescripcion();
+        this.images = servicioVehiculos.getImages();
+    }
     public int getIdServicio() {
         return idServicio;
     }
@@ -50,12 +57,6 @@ public class ListarServicioVehiculoDto {
         this.images = images;
     }
 
-    public ListarServicioVehiculoDto(ServicioVehiculos servicioVehiculos) {
-        this.idServicio = servicioVehiculos.getIdServicio();
-        this.nombreServicio = servicioVehiculos.getNombreServicio();
-        this.valorServicio = servicioVehiculos.getValorServicio();
-        this.descripcion = servicioVehiculos.getDescripcion();
-        this.images = servicioVehiculos.getImages();
-    }
+
 
 }

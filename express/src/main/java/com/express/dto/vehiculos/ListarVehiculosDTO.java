@@ -1,33 +1,29 @@
-package com.express.model;
+package com.express.dto.vehiculos;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.express.dto.ListarVehiculoDto;
+import com.express.model.Vehiculo;
 
-import java.util.List;
+public class ListarVehiculosDTO {
 
-@NoArgsConstructor
-@Entity
-@Table(name="vehiculo")
-public class Vehiculo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVehiculo;
     private int capacidad;
     private String documentacion;
     private String placaVehiculo;
     private String seguroVig;
     private String modelo;
+    private String primerNombre;
 
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_idusuario") // Nombre de la columna de clave foránea en la tabla Vehiculo
-    private Usuario usuario;
-    @ManyToOne
-    @JoinColumn(name = "reservaciones_id_reservaciones")
-    private Reservacion reservacion;
-
+    public ListarVehiculosDTO(Vehiculo vehiculo){
+       this.idVehiculo = vehiculo.getIdVehiculo();
+       this.capacidad = vehiculo.getCapacidad();
+       this.documentacion = vehiculo.getDocumentacion();
+       this.placaVehiculo = vehiculo.getPlacaVehiculo();
+       this.seguroVig = vehiculo.getSeguroVig();
+       this.modelo = vehiculo.getModelo();
+        if (vehiculo.getUsuario() != null) {
+            this.primerNombre = vehiculo.getUsuario().getPrimerNombre();
+        }
+    }
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -77,21 +73,11 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getPrimerNombre() {
+        return primerNombre;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
     }
-
-    public Reservacion getReservacion() {
-        return reservacion;
-    }
-
-    public void setReservacion(Reservacion reservacion) {
-        this.reservacion = reservacion;
-    }
-
-
 }

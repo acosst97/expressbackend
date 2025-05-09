@@ -39,9 +39,17 @@ public class UsuarioController {
         }
   }
     @GetMapping("/listar")
-    public ResponseEntity<List<ListarUsuarioDto>> listarUsuarios() {
+    public ResponseEntity<?> listarUsuarios() {
         List<ListarUsuarioDto> usuarios = usuarioService.listarUsuarios();
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        if (usuarios == null || usuarios.isEmpty()){
+            return new ResponseEntity<>(new MensajeDTO("No hay Usuarios para mostrar."), HttpStatus.OK);
+        }else{
+            Map<String, Object> response = new HashMap<>();
+            response.put("mensaje", "Lista de usuarios obtenida exitosamente.");
+            response.put("usuarios", usuarios);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        }
     }
 
 

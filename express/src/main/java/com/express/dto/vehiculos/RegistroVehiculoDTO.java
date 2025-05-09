@@ -1,13 +1,24 @@
 package com.express.dto.vehiculos;
 
-public class RegistroVehiculos {
+import com.express.dto.ListarVehiculoDto;
+import com.express.model.Vehiculo;
+import com.express.services.VehiculoService;
+import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
+public class RegistroVehiculoDTO  {
     private int idVehiculo;
-    private int Capacidad;
+    private int capacidad;
     private String documentacion;
     private String placaVehiculo;
     private String seguroVig;
     private String modelo;
+    private String documento;
+
+
+
+
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -18,11 +29,11 @@ public class RegistroVehiculos {
     }
 
     public int getCapacidad() {
-        return Capacidad;
+        return capacidad;
     }
 
     public void setCapacidad(int capacidad) {
-        Capacidad = capacidad;
+        this.capacidad = capacidad;
     }
 
     public String getDocumentacion() {
@@ -55,6 +66,14 @@ public class RegistroVehiculos {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
 

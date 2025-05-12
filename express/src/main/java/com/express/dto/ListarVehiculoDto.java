@@ -1,14 +1,14 @@
 package com.express.dto;
 
 import com.express.model.Usuario;
+import com.express.model.Vehiculo;
 
 import java.util.List;
 
 public class ListarVehiculoDto {
 
-
     private int idVehiculo;
-    private int Capacidad;
+    private int capacidad;
     private String documentacion;
     private String placaVehiculo;
     private String seguroVig;
@@ -16,6 +16,16 @@ public class ListarVehiculoDto {
 
     private List<String> primerNombre;
     private Usuario usuario;
+
+    public ListarVehiculoDto (Vehiculo vehiculo){
+       this.idVehiculo = vehiculo.getIdVehiculo();
+       this.capacidad = vehiculo.getCapacidad();
+       this.documentacion = vehiculo.getDocumentacion();
+       this.placaVehiculo = vehiculo.getPlacaVehiculo();
+       this.seguroVig = vehiculo.getSeguroVig();
+       this.modelo = vehiculo.getModelo();
+    }
+
     public int getIdVehiculo() {
         return idVehiculo;
     }
@@ -25,11 +35,11 @@ public class ListarVehiculoDto {
     }
 
     public int getCapacidad() {
-        return Capacidad;
+        return capacidad;
     }
 
     public void setCapacidad(int capacidad) {
-        Capacidad = capacidad;
+        capacidad = capacidad;
     }
 
     public String getDocumentacion() {
@@ -80,7 +90,7 @@ public class ListarVehiculoDto {
     }
     public ListarVehiculoDto(int idVehiculo, int capacidad, String documentacion, String placaVehiculo, String seguroVig, String modelo) {
         this.idVehiculo = idVehiculo;
-        Capacidad = capacidad;
+        this.capacidad = capacidad;
         this.documentacion = documentacion;
         this.placaVehiculo = placaVehiculo;
         this.seguroVig = seguroVig;

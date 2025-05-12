@@ -6,7 +6,7 @@ POST  http://localhost:8080/usuarios/login
     "password": "Contra1234"
 }
 
-registro
+ //---------------registro -----------------
 POST http://localhost:8080/usuarios/registro
 {
     "primerNombre": "Harvin",
@@ -40,9 +40,9 @@ POST http://localhost:8080/auth/reset-password
     "nuevaContrasena": "Contra1234"
 }
 
-//Clases de serviciosVehiculos
+//-------------Clases de serviciosVehiculos ---------------//
 Listar Servcios
-Gett http://localhost:8080/services/listarVehiculos
+Gett http://localhost:8080/services/listarServiciosVehiculos
 
 Crear Servicios
 Post http://localhost:8080/services/registerServiciosVehiculos
@@ -64,7 +64,6 @@ DELETE http://localhost:8080/services/6
 lISTAR Reservaciones
 GET http://localhost:8080/reservarciones/lstReservaciones
 
-
 /Registrar
 POST http://localhost:8080/reservarciones/registrarReservacion
 {
@@ -75,8 +74,33 @@ POST http://localhost:8080/reservarciones/registrarReservacion
   "documentoUsuario": "1012415454"
 }
 Eliminar
-
 DELETE http://localhost:8080/reservarciones/2
+
+//------------- VEHICULOS ----------------//
+GET http://localhost:8080/vehiculos/listarVehiculos
+POST http://localhost:8080/vehiculos/registrarVehiculo
+{
+
+"capacidad": 12,
+"documentacion": "Pruebas vehiculos",
+"placaVehiculo": "vng 145",
+"seguroVig": "2005/05/21",
+"modelo":"2018",
+"documento" : "1012415454"
+}
+
+PUT
+POST http://localhost:8080/vehiculos/actualizar;
+{
+"idVehiculo":1,
+"capacidad": 12,
+"documentacion": "Pruebas Actualizacion",
+"placaVehiculo": "vng 145",
+"seguroVig": "2005/05/21",
+"modelo":"2018",
+"documento" : "1012415454"
+}
+
 
 
 

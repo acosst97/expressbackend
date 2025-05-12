@@ -22,7 +22,7 @@ public class ServicioVehiculoController {
 
     @Autowired
    private ServicioVehiculoService srv;
-    @GetMapping("/listarVehiculos")
+    @GetMapping("/listarServiciosVehiculos")
     public ResponseEntity<?> listarServicios() {
         List<ListarServicioVehiculoDto> servicios = srv.listarServiciosVehiculos();
         if (servicios == null || servicios.isEmpty()) {

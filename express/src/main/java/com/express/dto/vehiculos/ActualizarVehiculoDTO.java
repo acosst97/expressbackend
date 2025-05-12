@@ -1,9 +1,10 @@
 package com.express.dto.vehiculos;
 
-import com.express.dto.ListarVehiculoDto;
-import com.express.model.Vehiculo;
+import com.express.repository.UsuarioRepository;
+import com.express.repository.VehiculoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ListarVehiculosDTO {
+public class ActualizarVehiculoDTO {
 
     private int idVehiculo;
     private int capacidad;
@@ -11,19 +12,23 @@ public class ListarVehiculosDTO {
     private String placaVehiculo;
     private String seguroVig;
     private String modelo;
-  //  private String primerNombre;
+    private String documento;
 
-    public ListarVehiculosDTO(Vehiculo vehiculo){
-       this.idVehiculo = vehiculo.getIdVehiculo();
-       this.capacidad = vehiculo.getCapacidad();
-       this.documentacion = vehiculo.getDocumentacion();
-       this.placaVehiculo = vehiculo.getPlacaVehiculo();
-       this.seguroVig = vehiculo.getSeguroVig();
-       this.modelo = vehiculo.getModelo();
-       /* if (vehiculo.getUsuario() != null) {
-            this.primerNombre = vehiculo.getUsuario().getPrimerNombre();
-        }*/
+    @Autowired
+    VehiculoRepository vRepo;
+    @Autowired
+    UsuarioRepository uRepo;
+
+    public ActualizarVehiculoDTO(int idVehiculo, int capacidad, String documentacion, String placaVehiculo, String seguroVig, String modelo, String documento) {
+        this.idVehiculo = idVehiculo;
+        this.capacidad = capacidad;
+        this.documentacion = documentacion;
+        this.placaVehiculo = placaVehiculo;
+        this.seguroVig = seguroVig;
+        this.modelo = modelo;
+        this.documento = documento;
     }
+
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -73,5 +78,11 @@ public class ListarVehiculosDTO {
         this.modelo = modelo;
     }
 
+    public String getDocumento() {
+        return documento;
+    }
 
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
 }

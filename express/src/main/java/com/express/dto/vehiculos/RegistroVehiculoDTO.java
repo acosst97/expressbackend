@@ -19,7 +19,6 @@ public class RegistroVehiculoDTO  {
 
 
 
-
     public int getIdVehiculo() {
         return idVehiculo;
     }

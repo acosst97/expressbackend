@@ -52,7 +52,6 @@ public class ReservacionesImp implements ReservacionesService {
 
     @Override
     public ResponseEntity<?> eliminarReservacion(Integer id) {
-        // Primero, verifica si la reservación con el ID existe
         Optional<Reservacion> reservacionOptional = rRepo.findById(id);
 
         if (reservacionOptional.isEmpty()) {

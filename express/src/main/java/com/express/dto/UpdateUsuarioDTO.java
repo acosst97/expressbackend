@@ -1,44 +1,35 @@
 package com.express.dto;
 
-import com.express.model.Rol;
 import com.express.model.Usuario;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-
-public class ListarUsuarioDto {
-    private Integer idUsuario;
-    private String documento;
+public class UpdateUsuarioDTO {
+    private int idUsuario;
     private String primerNombre;
+
     private String segundoNombre;
     private String primerApellido;
     private String segApellido;
+
+    private int    experiencia;
+    private String telefono;
     private String correo;
-    private List<String> nombresRoles; // Lista para los nombres de los roles
-    private Rol rol;
-    public ListarUsuarioDto(Usuario usuario) {
+
+    public UpdateUsuarioDTO(Usuario usuario){
         this.idUsuario = usuario.getIdUsuario();
-        this.documento  = usuario.getDocumento();
         this.primerNombre = usuario.getPrimerNombre();
         this.segundoNombre = usuario.getSegundoNombre();
-        this.primerApellido = usuario.getPrimerApellido();
+        this.primerApellido = usuario.getSegApellido();
         this.segApellido = usuario.getSegApellido();
+        this.experiencia = usuario.getExperiencia();
+        this.telefono = usuario.getTelefono();
         this.correo = usuario.getCorreo();
-        this.nombresRoles = usuario.getRoles().stream()
-                .map(Rol::getNombreRol)
-                .collect(Collectors.toList());
     }
-  //  private RolDto rol;
 
-
-    public Integer getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -74,27 +65,29 @@ public class ListarUsuarioDto {
         this.segApellido = segApellido;
     }
 
+
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(int experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public String getCorreo() {
         return correo;
     }
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public List<String> getNombresRoles() {
-        return nombresRoles;
-    }
-
-    public void setNombresRoles(List<String> nombresRoles) {
-        this.nombresRoles = nombresRoles;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
     }
 }

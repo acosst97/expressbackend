@@ -1,7 +1,9 @@
 package com.express.imp;
 
 import com.express.dto.ListarUsuarioDto;
+import com.express.dto.MensajeDTO;
 import com.express.dto.RegistroUsuarioDto;
+import com.express.dto.UpdateUsuarioDTO;
 import com.express.model.Rol;
 import com.express.model.Usuario;
 import com.express.repository.RolRepository;
@@ -10,6 +12,8 @@ import com.express.repository.UsuarioRepository;
 import com.express.services.UsuarioService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +65,8 @@ public class UsuarioServiceImp implements UsuarioService {
                 .collect(Collectors.toList());
     }
 
+
+
     @Override
     public Usuario validarUsuario(String correo, String password) {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
@@ -71,11 +77,25 @@ public class UsuarioServiceImp implements UsuarioService {
     }
    //Crud
 
+
     @Override
-    public void actualizarUsuario(Usuario usuario) {
+    public ResponseEntity<?> updateUsuario(UpdateUsuarioDTO updateUsuarioDTO) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(updateUsuarioDTO.getIdUsuario());
 
+        if (usuarioOptional.isEmpty()){
+            return new ResponseEntity<>(new MensajeDTO("No se encontró el Usuario con el ID proporcionado."), HttpStatus.NOT_FOUND);
+        }
+        Usuario usuario = usuarioOptional.get();
+        usuario.setPrimerNombre(updateUsuarioDTO.getPrimerNombre());
+        usuario.setPrimerApellido(updateUsuarioDTO.getPrimerApellido());
+        usuario.setSegundoNombre(updateUsuarioDTO.getSegundoNombre());
+        usuario.setSegApellido(updateUsuarioDTO.getSegApellido());
+        usuario.setExperiencia(updateUsuarioDTO.getExperiencia());
+        usuario.setTelefono(updateUsuarioDTO.getTelefono());
+        usuario.setCorreo(updateUsuarioDTO.getCorreo());
+        Usuario newUsuario = usuarioRepository.save(usuario);
+        return new  ResponseEntity<>(new MensajeDTO("Usuario actualizado exitosamente."), HttpStatus.OK);
     }
-
     @Override
     public void eliminarUsuario(Usuario usuario) {
 

@@ -2,6 +2,7 @@ package com.express.services;
 
 import com.express.dto.ListarVehiculoDto;
 import com.express.dto.vehiculos.ActualizarVehiculoDTO;
+import com.express.dto.vehiculos.AsignarVehiculoDTO;
 import com.express.dto.vehiculos.RegistroVehiculoDTO;
 import com.express.model.Vehiculo;
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,6 @@ public interface VehiculoService {
    ResponseEntity<?> updateVehiculo(ActualizarVehiculoDTO actualizarVehiculoDTO);
     List<ListarVehiculoDto> listartVehiculos();
 
+    ResponseEntity<?> asignarVehiculo(AsignarVehiculoDTO asignarVehiculoDTO);
     Optional<Vehiculo> obtenerVehiculoPorId(int idVehiculo);
 }

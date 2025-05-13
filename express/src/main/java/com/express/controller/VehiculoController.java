@@ -3,6 +3,7 @@ package com.express.controller;
 import com.express.dto.ListarVehiculoDto;
 import com.express.dto.MensajeDTO;
 import com.express.dto.vehiculos.ActualizarVehiculoDTO;
+import com.express.dto.vehiculos.AsignarVehiculoDTO;
 import com.express.dto.vehiculos.RegistroVehiculoDTO;
 import com.express.model.Vehiculo;
 import com.express.repository.UsuarioRepository;
@@ -28,7 +29,6 @@ public class VehiculoController {
     private UsuarioRepository userR;
      @Autowired
     private VehiculoService vSrv;
-
 
      @GetMapping("/listarVehiculos")
      public ResponseEntity<?> listarVehiculos(){
@@ -62,5 +62,10 @@ public class VehiculoController {
         return new ResponseEntity<>(new MensajeDTO("Vehículo eliminado exitosamente."), HttpStatus.OK);
     }
 
+     //Asigncacion de vehiculo
+     @PutMapping("/asignar")
+     public ResponseEntity<?> asignarVehiculo(@RequestBody AsignarVehiculoDTO asignarVehiculoDTO) {
+         return vSrv.asignarVehiculo(asignarVehiculoDTO);
+     }
 
 }

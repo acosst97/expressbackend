@@ -2,7 +2,9 @@ package com.express.services;
 
 import com.express.dto.ListarUsuarioDto;
 import com.express.dto.RegistroUsuarioDto;
+import com.express.dto.UpdateUsuarioDTO;
 import com.express.model.Usuario;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface UsuarioService {
 
     List<ListarUsuarioDto> listarUsuarios();
 
-    public void actualizarUsuario (Usuario usuario);
+    ResponseEntity<?> updateUsuario(UpdateUsuarioDTO updateUsuarioDTO);
 
     public void eliminarUsuario (Usuario usuario);
 

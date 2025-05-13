@@ -29,7 +29,6 @@ public class ListarReservacionesDto {
             this.documentoUsuario = reservacion.getUsuario().getDocumento();
             this.primerNombre = reservacion.getUsuario().getPrimerNombre();
             this.primerApellido = reservacion.getUsuario().getPrimerApellido();
-
         }
     }
 

@@ -3,6 +3,7 @@ package com.express.imp;
 import com.express.dto.ListarVehiculoDto;
 import com.express.dto.MensajeDTO;
 import com.express.dto.vehiculos.ActualizarVehiculoDTO;
+import com.express.dto.vehiculos.AsignarVehiculoDTO;
 import com.express.dto.vehiculos.RegistroVehiculoDTO;
 import com.express.model.Usuario;
 import com.express.model.Vehiculo;
@@ -80,6 +81,28 @@ public class VehiculoImp  implements VehiculoService {
          List<Vehiculo> vehiculos = vRepo.findAll();
 
          return vehiculos.stream().map(ListarVehiculoDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<?> asignarVehiculo(AsignarVehiculoDTO asignarVehiculoDTO) {
+        Optional<Vehiculo> vehiculoOptional = vRepo.findById(asignarVehiculoDTO.getIdVehiculo());
+        Optional<Usuario> usuarioOptional = Optional.ofNullable(uRepo.findByDocumento(asignarVehiculoDTO.getDocumentoUsuario()));
+
+        if (vehiculoOptional.isEmpty()) {
+            return new ResponseEntity<>(new MensajeDTO("No se encontró el vehículo con el ID proporcionado."), HttpStatus.NOT_FOUND);
+        }
+
+        if (usuarioOptional.isEmpty()) {
+            return new ResponseEntity<>(new MensajeDTO("No se encontró el usuario con el documento proporcionado."), HttpStatus.NOT_FOUND);
+        }
+
+        Vehiculo vehiculo = vehiculoOptional.get();
+        Usuario usuario = usuarioOptional.get();
+
+        vehiculo.setUsuario(usuario);
+        vRepo.save(vehiculo);
+
+        return new ResponseEntity<>(new MensajeDTO("Vehículo asignado exitosamente al usuario."), HttpStatus.OK);
     }
 
     @Override

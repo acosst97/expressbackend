@@ -77,7 +77,10 @@ Eliminar
 DELETE http://localhost:8080/reservarciones/2
 
 //------------- VEHICULOS ----------------//
+LISTAR
 GET http://localhost:8080/vehiculos/listarVehiculos
+//Registrar
+
 POST http://localhost:8080/vehiculos/registrarVehiculo
 {
 
@@ -89,8 +92,8 @@ POST http://localhost:8080/vehiculos/registrarVehiculo
 "documento" : "1012415454"
 }
 
-PUT
-POST http://localhost:8080/vehiculos/actualizar;
+ACTUALIZAR
+PUT http://localhost:8080/vehiculos/actualizar;
 {
 "idVehiculo":1,
 "capacidad": 12,
@@ -100,6 +103,18 @@ POST http://localhost:8080/vehiculos/actualizar;
 "modelo":"2018",
 "documento" : "1012415454"
 }
+
+/asignar vehiculo a un usuario;
+PUT http://localhost:8080/vehiculos/asignar
+
+{
+"idVehiculo": 1,
+"documentoUsuario" : "1012415454"
+}
+
+
+//RUTAS
+Get
 
 
 

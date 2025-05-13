@@ -52,6 +52,11 @@ public class UsuarioController {
         }
     }
 
+    /*@PostMapping("/actualizar")
+    public updateUsuario(){
+
+    }
+*/
 
 
 }

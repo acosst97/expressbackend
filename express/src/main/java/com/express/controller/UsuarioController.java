@@ -52,11 +52,11 @@ public class UsuarioController {
         }
     }
 
-    /*@PostMapping("/actualizar")
-    public updateUsuario(){
-
+    @PutMapping ("/actualizar")
+    public ResponseEntity<?> actualizarUsuario(@RequestBody UpdateUsuarioDTO updateUsuarioDTO){
+     return usuarioService.updateUsuario(updateUsuarioDTO);
     }
-*/
+
 
 
 }

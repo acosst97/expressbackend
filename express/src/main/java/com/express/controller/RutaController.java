@@ -2,6 +2,8 @@ package com.express.controller;
 
 import com.express.dto.MensajeDTO;
 import com.express.dto.rutas.ListarRutasDTO;
+import com.express.dto.rutas.RegistroRutaDTO;
+import com.express.dto.rutas.UpdateRutaDTO;
 import com.express.repository.ReservacionesRepository;
 
 import com.express.services.RutaService;
@@ -10,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,6 @@ public class RutaController {
     @Autowired
     ReservacionesRepository reservaR;
 
-
     @GetMapping("/listarRutas")
     public ResponseEntity<?> listarRutas(){
         List<ListarRutasDTO> rutas = this.rutaS.listaRutas();
@@ -39,5 +39,21 @@ public class RutaController {
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
     }
+
+    @PostMapping("/crear")
+    public ResponseEntity<?> crearRuta(@RequestBody RegistroRutaDTO registroRutaDTO) {
+        return rutaS.registrarRuta(registroRutaDTO);
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<?> actualizarRuta(@RequestBody UpdateRutaDTO updateRutaDTO) {
+        return rutaS.updateRuta(updateRutaDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarRuta(@PathVariable int id) {
+        return rutaS.deleteById(id);
+    }
+
 
 }

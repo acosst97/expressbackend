@@ -26,6 +26,4 @@ public class ResetContrasenaDTO {
         this.nuevaContrasena = nuevaContrasena;
     }
 
-    public ResetContrasenaDTO() {
-    }
 }

@@ -1,9 +1,6 @@
 package com.express.imp;
 
-import com.express.dto.ListarUsuarioDto;
-import com.express.dto.MensajeDTO;
-import com.express.dto.RegistroUsuarioDto;
-import com.express.dto.UpdateUsuarioDTO;
+import com.express.dto.*;
 import com.express.model.Rol;
 import com.express.model.Usuario;
 import com.express.repository.RolRepository;
@@ -17,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,6 +97,35 @@ public class UsuarioServiceImp implements UsuarioService {
     @Override
     public void eliminarUsuario(Usuario usuario) {
 
+    }
+
+    @Override
+    public ResponseEntity<?> actualizarRolUsuario(UpdateUsuarioRolDTO updateUsuarioRolDTO) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(updateUsuarioRolDTO.getIdUsuario());
+        Optional<Rol> rolOptional = rolRepository.findById(updateUsuarioRolDTO.getIdRol());
+
+        if (usuarioOptional.isEmpty()) {
+            return new ResponseEntity<>(new MensajeDTO("No se encontró el Usuario con el ID proporcionado."), HttpStatus.NOT_FOUND);
+        }
+
+        if (rolOptional.isEmpty()) {
+            return new ResponseEntity<>(new MensajeDTO("No se encontró el Rol con el ID proporcionado."), HttpStatus.NOT_FOUND);
+        }
+
+        Usuario usuario = usuarioOptional.get();
+        Rol nuevoRol = rolOptional.get();
+
+        List<Rol> roles = new ArrayList<>(usuario.getRoles());
+
+
+        if (!roles.contains(nuevoRol)) {
+            roles.add(nuevoRol);
+            usuario.setRoles(roles);
+            usuarioRepository.save(usuario);
+            return new ResponseEntity<>(new MensajeDTO("Rol asignado al usuario exitosamente."), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new MensajeDTO("El usuario ya tiene asignado este rol."), HttpStatus.OK);
+        }
     }
 
     @Override

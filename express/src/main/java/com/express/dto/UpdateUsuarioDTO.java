@@ -65,8 +65,6 @@ public class UpdateUsuarioDTO {
         this.segApellido = segApellido;
     }
 
-
-
     public int getExperiencia() {
         return experiencia;
     }

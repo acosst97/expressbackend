@@ -17,19 +17,30 @@ public class ListarUsuarioDto {
     private String primerApellido;
     private String segApellido;
     private String correo;
-    private List<String> nombresRoles; // Lista para los nombres de los roles
-    private Rol rol;
+    private Integer rolId;     // Nuevo campo para el ID del rol
+    private String rolNombre;  // Nuevo campo para el nombre del rol
     public ListarUsuarioDto(Usuario usuario) {
         this.idUsuario = usuario.getIdUsuario();
-        this.documento  = usuario.getDocumento();
+        this.documento = usuario.getDocumento();
         this.primerNombre = usuario.getPrimerNombre();
         this.segundoNombre = usuario.getSegundoNombre();
         this.primerApellido = usuario.getPrimerApellido();
         this.segApellido = usuario.getSegApellido();
         this.correo = usuario.getCorreo();
-        this.nombresRoles = usuario.getRoles().stream()
-                .map(Rol::getNombreRol)
-                .collect(Collectors.toList());
+
+        // Asumiendo que cada usuario tiene un único rol (como parece en tu entidad Rol)
+        if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
+            Rol primerRol = usuario.getRoles().get(0); // Tomamos el primer rol
+            this.rolId = primerRol.getIdRol();
+            this.rolNombre = primerRol.getNombreRol();
+        } else {
+            this.rolId = null;
+            this.rolNombre = null;
+        }
+        // Si quieres seguir obteniendo la lista de nombres de roles (por si acaso)
+        // this.nombresRoles = usuario.getRoles().stream()
+        //         .map(Rol::getNombreRol)
+        //         .collect(Collectors.toList());
     }
   //  private RolDto rol;
 
@@ -40,6 +51,14 @@ public class ListarUsuarioDto {
 
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getPrimerNombre() {
@@ -82,19 +101,19 @@ public class ListarUsuarioDto {
         this.correo = correo;
     }
 
-    public List<String> getNombresRoles() {
-        return nombresRoles;
+    public Integer getRolId() {
+        return rolId;
     }
 
-    public void setNombresRoles(List<String> nombresRoles) {
-        this.nombresRoles = nombresRoles;
+    public void setRolId(Integer rolId) {
+        this.rolId = rolId;
     }
 
-    public Rol getRol() {
-        return rol;
+    public String getRolNombre() {
+        return rolNombre;
     }
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setRolNombre(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
 }

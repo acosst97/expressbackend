@@ -44,7 +44,6 @@ public class VehiculoImp  implements VehiculoService {
         return new ResponseEntity<>(new MensajeDTO("Vehiculo registrada exitosamente."), HttpStatus.CREATED);
     }
 
-
     @Override
     public void deleteVehiculo(int idVehiculo) {
         Optional<Vehiculo> vehiculoOptional = vRepo.findById(idVehiculo);

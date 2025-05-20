@@ -48,13 +48,16 @@ public class UsuarioController {
             response.put("mensaje", "Lista de usuarios obtenida exitosamente.");
             response.put("usuarios", usuarios);
             return new ResponseEntity<>(response, HttpStatus.OK);
-
         }
     }
 
     @PutMapping ("/actualizar")
     public ResponseEntity<?> actualizarUsuario(@RequestBody UpdateUsuarioDTO updateUsuarioDTO){
      return usuarioService.updateUsuario(updateUsuarioDTO);
+    }
+    @PutMapping("/actualizar-rol")
+    public ResponseEntity<?> actualizarRolUsuario(@RequestBody UpdateUsuarioRolDTO updateUsuarioRolDTO) {
+        return usuarioService.actualizarRolUsuario(updateUsuarioRolDTO);
     }
 
 

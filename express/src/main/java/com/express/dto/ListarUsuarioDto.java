@@ -16,7 +16,9 @@ public class ListarUsuarioDto {
     private String segundoNombre;
     private String primerApellido;
     private String segApellido;
+    private String telefono;
     private String correo;
+    private int experiencia;
     private Integer rolId;     // Nuevo campo para el ID del rol
     private String rolNombre;  // Nuevo campo para el nombre del rol
     public ListarUsuarioDto(Usuario usuario) {
@@ -27,7 +29,8 @@ public class ListarUsuarioDto {
         this.primerApellido = usuario.getPrimerApellido();
         this.segApellido = usuario.getSegApellido();
         this.correo = usuario.getCorreo();
-
+       this.telefono = usuario.getTelefono();
+       this.experiencia = usuario.getExperiencia();
         // Asumiendo que cada usuario tiene un único rol (como parece en tu entidad Rol)
         if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
             Rol primerRol = usuario.getRoles().get(0); // Tomamos el primer rol
@@ -115,5 +118,21 @@ public class ListarUsuarioDto {
 
     public void setRolNombre(String rolNombre) {
         this.rolNombre = rolNombre;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(int experiencia) {
+        this.experiencia = experiencia;
     }
 }

@@ -90,7 +90,6 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setSegApellido(updateUsuarioDTO.getSegApellido());
         usuario.setExperiencia(updateUsuarioDTO.getExperiencia());
         usuario.setTelefono(updateUsuarioDTO.getTelefono());
-        usuario.setCorreo(updateUsuarioDTO.getCorreo());
         Usuario newUsuario = usuarioRepository.save(usuario);
         return new  ResponseEntity<>(new MensajeDTO("Usuario actualizado exitosamente."), HttpStatus.OK);
     }

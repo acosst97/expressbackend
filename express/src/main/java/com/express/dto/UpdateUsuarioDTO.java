@@ -9,7 +9,6 @@ public class UpdateUsuarioDTO {
     private String segundoNombre;
     private String primerApellido;
     private String segApellido;
-
     private int    experiencia;
     private String telefono;
     private String correo;
@@ -22,7 +21,10 @@ public class UpdateUsuarioDTO {
         this.segApellido = usuario.getSegApellido();
         this.experiencia = usuario.getExperiencia();
         this.telefono = usuario.getTelefono();
-        this.correo = usuario.getCorreo();
+
+    }
+
+    public UpdateUsuarioDTO() {
     }
 
     public int getIdUsuario() {

@@ -19,4 +19,12 @@ public class UpdateUsuarioRolDTO {
     public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
+
+    public UpdateUsuarioRolDTO(Integer idUsuario, Integer idRol) {
+        this.idUsuario = idUsuario;
+        this.idRol = idRol;
+    }
+
+    public UpdateUsuarioRolDTO() {
+    }
 }

@@ -1,6 +1,7 @@
 package com.express.controller;
 
 import com.express.dto.*;
+import com.express.dto.rol.ListaRolDTO;
 import com.express.imp.RolImp;
 import com.express.model.Rol;
 import com.express.model.Usuario;
@@ -51,7 +52,7 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping ("/actualizar")
+    @PutMapping("/actualizar")
     public ResponseEntity<?> actualizarUsuario(@RequestBody UpdateUsuarioDTO updateUsuarioDTO){
      return usuarioService.updateUsuario(updateUsuarioDTO);
     }
@@ -59,7 +60,18 @@ public class UsuarioController {
     public ResponseEntity<?> actualizarRolUsuario(@RequestBody UpdateUsuarioRolDTO updateUsuarioRolDTO) {
         return usuarioService.actualizarRolUsuario(updateUsuarioRolDTO);
     }
-
+    @GetMapping("/listarRoles")
+    public ResponseEntity<?> listarRoles() {
+            List<ListaRolDTO> roll = rolImp.buscartodos();
+        if (roll == null || roll.isEmpty()){
+            return new ResponseEntity<>(new MensajeDTO("No hay Roles para mostrar."), HttpStatus.OK);
+        }else{
+            Map<String, Object> response = new HashMap<>();
+            response.put("mensaje", "Lista de roles obtenida exitosamente.");
+            response.put("roles", roll);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
 
 
 }

@@ -62,10 +62,10 @@ DELETE http://localhost:8080/services/6
 
 //----------     RESERVACIONES   ------------------
 lISTAR Reservaciones
-GET http://localhost:8080/reservarciones/lstReservaciones
+GET http://localhost:8080/reservaciones/lstReservaciones
 
 /Registrar
-POST http://localhost:8080/reservarciones/registrarReservacion
+POST http://localhost:8080/reservaciones/registrarReservacion
 {
   "detallePago": "Pago con tarjeta de crédito",
   "valorPago": "50.00",
@@ -74,7 +74,7 @@ POST http://localhost:8080/reservarciones/registrarReservacion
   "documentoUsuario": "1012415454"
 }
 Eliminar
-DELETE http://localhost:8080/reservarciones/2
+DELETE http://localhost:8080/reservaciones/2
 
 //------------- VEHICULOS ----------------//
 LISTAR

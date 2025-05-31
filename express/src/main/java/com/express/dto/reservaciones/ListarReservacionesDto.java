@@ -11,8 +11,6 @@ public class ListarReservacionesDto {
     private String  valorPago;
     private String fechaReserva;
     private String fechaViaje;
-    private List<Integer> capacidad;
-    private Vehiculo vehiculo;
     private Integer idReservaciones;
     private Integer idUsuario;
     private String documentoUsuario;
@@ -63,23 +61,6 @@ public class ListarReservacionesDto {
     public void setFechaViaje(String fechaViaje) {
         this.fechaViaje = fechaViaje;
     }
-
-    public List<Integer> getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(List<Integer> capacidad) {
-        this.capacidad = capacidad;
-    }
-
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
     public Integer getIdReservaciones() {
         return idReservaciones;
     }

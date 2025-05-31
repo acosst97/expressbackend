@@ -25,9 +25,14 @@ public class UsuarioController {
     @Autowired
     RolImp rolImp;
     @PostMapping("/registro")
-    public ResponseEntity<Usuario> registrarUsuario(@RequestBody RegistroUsuarioDto registroUsuarioDTO){
-        Usuario nuevoUsuario = usuarioService.registrarUsuario(registroUsuarioDTO);
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+    public ResponseEntity<MensajeDTO> registrarUsuario(@RequestBody RegistroUsuarioDto registroUsuarioDTO) {
+        try {
+            Usuario nuevoUsuario = usuarioService.registrarUsuario(registroUsuarioDTO);
+
+            return new ResponseEntity<>(new MensajeDTO("Usuario registrado exitosamente con ID: " + nuevoUsuario.getIdUsuario()), HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(new MensajeDTO("Error al registrar usuario: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/login")

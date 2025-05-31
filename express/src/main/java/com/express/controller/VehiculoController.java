@@ -1,9 +1,9 @@
 package com.express.controller;
 
-import com.express.dto.ListarVehiculoDto;
 import com.express.dto.MensajeDTO;
 import com.express.dto.vehiculos.ActualizarVehiculoDTO;
 import com.express.dto.vehiculos.AsignarVehiculoDTO;
+import com.express.dto.vehiculos.ListarVehiculosDTO;
 import com.express.dto.vehiculos.RegistroVehiculoDTO;
 import com.express.model.Vehiculo;
 import com.express.repository.UsuarioRepository;
@@ -32,7 +32,7 @@ public class VehiculoController {
 
      @GetMapping("/listarVehiculos")
      public ResponseEntity<?> listarVehiculos(){
-         List<ListarVehiculoDto> vehiculo = this.vSrv.listartVehiculos();
+         List<ListarVehiculosDTO> vehiculo = this.vSrv.listartVehiculos();
          if (vehiculo == null || vehiculo.isEmpty()){
              return  new ResponseEntity<>(new MensajeDTO("No hay Vehiculos Registrados"),HttpStatus.OK);
          }else{

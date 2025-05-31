@@ -1,7 +1,7 @@
 package com.express.dto.vehiculos;
 
-import com.express.dto.ListarVehiculoDto;
 import com.express.model.Vehiculo;
+import com.express.services.VehiculoService;
 
 public class ListarVehiculosDTO {
 
@@ -11,19 +11,25 @@ public class ListarVehiculosDTO {
     private String placaVehiculo;
     private String seguroVig;
     private String modelo;
-  //  private String primerNombre;
+    private String base64;
+    private String documentoUsuario;
+    private String nombreUsuario;
 
-    public ListarVehiculosDTO(Vehiculo vehiculo){
-       this.idVehiculo = vehiculo.getIdVehiculo();
-       this.capacidad = vehiculo.getCapacidad();
-       this.documentacion = vehiculo.getDocumentacion();
-       this.placaVehiculo = vehiculo.getPlacaVehiculo();
-       this.seguroVig = vehiculo.getSeguroVig();
-       this.modelo = vehiculo.getModelo();
-       /* if (vehiculo.getUsuario() != null) {
-            this.primerNombre = vehiculo.getUsuario().getPrimerNombre();
-        }*/
+    // Constructor
+
+
+    public ListarVehiculosDTO(Vehiculo vehiculo) {
+        this.idVehiculo = vehiculo.getIdVehiculo();
+        this.capacidad = vehiculo.getCapacidad();
+        this.documentacion = vehiculo.getDocumentacion();
+        this.base64 = vehiculo.getDocBase64();
+        this.placaVehiculo = vehiculo.getPlacaVehiculo();
+        this.seguroVig = vehiculo.getSeguroVig();
+        this.modelo = vehiculo.getModelo();
+        this.documentoUsuario = vehiculo.getUsuario().getDocumento();
+        this.nombreUsuario = vehiculo.getUsuario().getPrimerNombre();
     }
+
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -39,6 +45,14 @@ public class ListarVehiculosDTO {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public String getBase64() {
+        return base64;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
     }
 
     public String getDocumentacion() {
@@ -73,5 +87,19 @@ public class ListarVehiculosDTO {
         this.modelo = modelo;
     }
 
+    public String getDocumentoUsuario() {
+        return documentoUsuario;
+    }
 
+    public void setDocumentoUsuario(String documentoUsuario) {
+        this.documentoUsuario = documentoUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
 }

@@ -29,7 +29,6 @@ public class AuthController {
     @PostMapping("/solicitar-recuperacion")
     public ResponseEntity<?> solicitarRecuperacion(@RequestBody SolicitudRecuperacionDTO solicitud) {
         Usuario usuario = usuarioRepository.findByCorreo(solicitud.getCorreo());
-
         if (usuario == null) {
             return new ResponseEntity<>("Correo electrónico no encontrado", HttpStatus.NOT_FOUND);
         }

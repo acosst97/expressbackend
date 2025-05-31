@@ -40,10 +40,7 @@ public class ListarUsuarioDto {
             this.rolId = null;
             this.rolNombre = null;
         }
-        // Si quieres seguir obteniendo la lista de nombres de roles (por si acaso)
-        // this.nombresRoles = usuario.getRoles().stream()
-        //         .map(Rol::getNombreRol)
-        //         .collect(Collectors.toList());
+
     }
   //  private RolDto rol;
 

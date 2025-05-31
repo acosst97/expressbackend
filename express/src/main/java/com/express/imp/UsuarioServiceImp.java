@@ -44,13 +44,15 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setCorreo(registroUsuarioDTO.getCorreo());
         usuario.setPassword(passwordEncoder.encode(registroUsuarioDTO.getPassword()));
 
-        // Obtener el rol por defecto ()
-        Optional<Rol> rolClienteOptional = rolRepository.findById(3);
+        // Obtener el rol por defecto ();
+        Optional<Rol> rolClienteOptional = rolRepository.findByNombreRol("CLIENTE"); // Cambia "CLIENTE" al nombre de tu rol por defecto
         if (rolClienteOptional.isPresent()) {
             Rol rolCliente = rolClienteOptional.get();
             usuario.setRoles(List.of(rolCliente)); // Asigna la lista de roles al usuario
         } else {
-            throw new RuntimeException("Error: El rol con ID 3 no fue encontrado.");
+
+            // Podrías lanzar una excepción personalizada o loggear un error.
+            throw new RuntimeException("Error: El rol 'CLIENTE' no fue encontrado. Asegúrate de que existe en la base de datos.");
         }
         return usuarioRepository.save(usuario);
     }

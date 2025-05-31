@@ -16,17 +16,20 @@ public class Vehiculo {
     private int idVehiculo;
     private int capacidad;
     private String documentacion;
+    @Column(columnDefinition = "TEXT")
+    private String docBase64;
+
     private String placaVehiculo;
     private String seguroVig;
     private String modelo;
-
-
     @ManyToOne
     @JoinColumn(name = "usuario_idusuario") // Nombre de la columna de clave foránea en la tabla Vehiculo
     private Usuario usuario;
     @ManyToOne
     @JoinColumn(name = "reservaciones_id_reservaciones")
     private Reservacion reservacion;
+
+
 
 
     public int getIdVehiculo() {
@@ -75,6 +78,14 @@ public class Vehiculo {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getDocBase64() {
+        return docBase64;
+    }
+
+    public void setDocBase64(String docBase64) {
+        this.docBase64 = docBase64;
     }
 
     public Usuario getUsuario() {

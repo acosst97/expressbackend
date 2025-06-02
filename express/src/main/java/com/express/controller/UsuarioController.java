@@ -28,7 +28,6 @@ public class UsuarioController {
     public ResponseEntity<MensajeDTO> registrarUsuario(@RequestBody RegistroUsuarioDto registroUsuarioDTO) {
         try {
             Usuario nuevoUsuario = usuarioService.registrarUsuario(registroUsuarioDTO);
-
             return new ResponseEntity<>(new MensajeDTO("Usuario registrado exitosamente con ID: " + nuevoUsuario.getIdUsuario()), HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(new MensajeDTO("Error al registrar usuario: " + e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -48,7 +47,10 @@ public class UsuarioController {
     public ResponseEntity<?> listarUsuarios() {
         List<ListarUsuarioDto> usuarios = usuarioService.listarUsuarios();
         if (usuarios == null || usuarios.isEmpty()){
-            return new ResponseEntity<>(new MensajeDTO("No hay Usuarios para mostrar."), HttpStatus.OK);
+            Map<String,Object> responseEmpty  =  new HashMap<>();
+            responseEmpty.put("mensaje", "No hay usuarios Disponibles");
+            responseEmpty.put("usuarios",usuarios);
+            return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
         }else{
             Map<String, Object> response = new HashMap<>();
             response.put("mensaje", "Lista de usuarios obtenida exitosamente.");

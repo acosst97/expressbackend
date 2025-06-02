@@ -3,6 +3,7 @@ package com.express.controller;
 import com.express.dto.MensajeDTO;
 import com.express.dto.serviciosDto.CrearServicioVehiculoDto;
 import com.express.dto.serviciosDto.ListarServicioVehiculoDto;
+import com.express.dto.serviciosDto.UpdateServicesVehiculoDto;
 import com.express.model.ServicioVehiculos;
 import com.express.services.ServicioVehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,21 @@ import java.util.Map;
 @RequestMapping("/services")
 @CrossOrigin
 public class ServicioVehiculoController {
-
     @Autowired
    private ServicioVehiculoService srv;
     @GetMapping("/listarServiciosVehiculos")
     public ResponseEntity<?> listarServicios() {
         List<ListarServicioVehiculoDto> servicios = srv.listarServiciosVehiculos();
         if (servicios == null || servicios.isEmpty()) {
-            return new ResponseEntity<>(new MensajeDTO("No hay servicios para mostrar."), HttpStatus.OK);
-
+            Map<String,Object> responseEmpty  =  new HashMap<>();
+            responseEmpty.put("mensaje", "No hay servicios Disponibles");
+            responseEmpty.put("servicios",servicios);
+            return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
         } else {
             Map<String, Object> response = new HashMap<>();
-            response.put("mensaje", "Lista de Servicios obtenida exitosamente.");
+            response.put("mensaje", "Consumo exitoso");
             response.put("servicios", servicios);
             return new ResponseEntity<>(response, HttpStatus.OK);
-
         }
     }
 
@@ -47,14 +48,17 @@ public class ServicioVehiculoController {
 
         }
     }
+    @PutMapping("/updateSrvVehiculos")
+    public ResponseEntity<?> updateServicio(@RequestBody UpdateServicesVehiculoDto updateServicesVehiculoDto) {
+        return srv.updateServiceVehicle(updateServicesVehiculoDto);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<MensajeDTO> eliminarVehiculo(@PathVariable int id) {
         boolean eliminado = srv.deleteServicio(id);
         if (eliminado) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new MensajeDTO("Consumo Exitoso"),HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el servicio vehicular con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-
     }
 }

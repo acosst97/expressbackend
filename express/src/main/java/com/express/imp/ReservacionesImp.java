@@ -27,22 +27,18 @@ public class ReservacionesImp implements ReservacionesService {
     public ResponseEntity<?> registrarReservacion(RegistroReservacionesDto registroReservacionesDto) {
 
         Usuario usuario = uRepo.findByDocumento(registroReservacionesDto.getDocumentoUsuario());
-
         if (usuario == null) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró ningún usuario con el documento proporcionado."), HttpStatus.NOT_FOUND);
         }
-
         Reservacion reservacion = new Reservacion();
         reservacion.setDetallePago(registroReservacionesDto.getDetallePago());
         reservacion.setValorPago(registroReservacionesDto.getValorPago());
         reservacion.setFechaReserva(registroReservacionesDto.getFechaReserva());
         reservacion.setFechaViaje(registroReservacionesDto.getFechaViaje());
         reservacion.setUsuario(usuario); // Asocia la reservación con el usuario encontrado
-
         Reservacion nuevaReser = rRepo.save(reservacion);
         return new ResponseEntity<>(new MensajeDTO("Reservación registrada exitosamente."), HttpStatus.CREATED);
     }
-
 
     @Override
     public List<ListarReservacionesDto> listarReservaciones() {

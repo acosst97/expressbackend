@@ -9,11 +9,10 @@ import lombok.Data;
 public class ListarRutasDTO {
     private int idRuta;
     private String codRuta;
+    private Boolean activa;
     private String nombreRuta;
-
     private String origenRuta;
     private String destinoRuta;
-    private  String estadoRuta;
     private Estado estado;
     private String nombreEstado;
     private String fechaReserva;
@@ -24,6 +23,8 @@ public class ListarRutasDTO {
         this.codRuta = ruta.getCodRuta();
         this.nombreRuta = ruta.getNombreRuta();
         this.origenRuta = ruta.getOrigenRuta();
+        this.destinoRuta = ruta.getDestinoRuta();
+        this.activa  = ruta.getActiva();
         if (ruta.getEstado() != null){
             ruta.getEstado().getNombreEstado();
         }
@@ -31,6 +32,7 @@ public class ListarRutasDTO {
             ruta.getReservacion().getFechaReserva();
             ruta.getReservacion().getFechaViaje();
             ruta.getReservacion().getValorPago();
+            ruta.getReservacion().getUsuario().getDocumento();
         }
     }
 
@@ -74,14 +76,6 @@ public class ListarRutasDTO {
         this.destinoRuta = destinoRuta;
     }
 
-    public String getEstadoRuta() {
-        return estadoRuta;
-    }
-
-    public void setEstadoRuta(String estadoRuta) {
-        this.estadoRuta = estadoRuta;
-    }
-
     public Estado getEstado() {
         return estado;
     }
@@ -120,6 +114,14 @@ public class ListarRutasDTO {
 
     public void setValorPago(String valorPago) {
         this.valorPago = valorPago;
+    }
+
+    public Boolean getActiva() {
+        return activa;
+    }
+
+    public void setActiva(Boolean activa) {
+        this.activa = activa;
     }
 }
 

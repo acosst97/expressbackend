@@ -14,11 +14,6 @@ public class ActualizarVehiculoDTO {
     private String modelo;
     private String documento;
 
-    @Autowired
-    VehiculoRepository vRepo;
-    @Autowired
-    UsuarioRepository uRepo;
-
     public ActualizarVehiculoDTO(int idVehiculo, int capacidad, String documentacion, String placaVehiculo, String seguroVig, String modelo, String documento) {
         this.idVehiculo = idVehiculo;
         this.capacidad = capacidad;

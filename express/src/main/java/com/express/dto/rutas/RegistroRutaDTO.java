@@ -1,23 +1,27 @@
 package com.express.dto.rutas;
 
+import jakarta.persistence.Column;
+
 public class RegistroRutaDTO {
 
     private int idRuta;
 
     private String codRuta;
+
     private String nombreRuta;
 
     private String origenRuta;
     private String destinoRuta;
-    private  String estadoRuta;
+
     private Integer idEstado;
-    private static int reservacionesIdReservaciones;
-    public RegistroRutaDTO(String codRuta, String nombreRuta, String origenRuta, String destinoRuta, String estadoRuta, Integer idEstado, Integer reservacionesIdReservaciones) {
+    private Integer reservacionesIdReservaciones;
+
+    public RegistroRutaDTO(int idRuta, String codRuta, String nombreRuta, String origenRuta, String destinoRuta, String estadoRuta, Integer idEstado, Integer reservacionesIdReservaciones) {
+        this.idRuta = idRuta;
         this.codRuta = codRuta;
         this.nombreRuta = nombreRuta;
         this.origenRuta = origenRuta;
         this.destinoRuta = destinoRuta;
-        this.estadoRuta = estadoRuta;
         this.idEstado = idEstado;
         this.reservacionesIdReservaciones = reservacionesIdReservaciones;
     }
@@ -62,14 +66,6 @@ public class RegistroRutaDTO {
         this.destinoRuta = destinoRuta;
     }
 
-    public String getEstadoRuta() {
-        return estadoRuta;
-    }
-
-    public void setEstadoRuta(String estadoRuta) {
-        this.estadoRuta = estadoRuta;
-    }
-
     public Integer getIdEstado() {
         return idEstado;
     }
@@ -78,7 +74,7 @@ public class RegistroRutaDTO {
         this.idEstado = idEstado;
     }
 
-    public static Integer getReservacionesIdReservaciones() {
+    public Integer getReservacionesIdReservaciones() {
         return reservacionesIdReservaciones;
     }
 

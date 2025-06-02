@@ -28,7 +28,10 @@ public class ReservacionesController {
     public ResponseEntity<?> listarReservaciones(){
         List<ListarReservacionesDto> reservacion = this.rService.listarReservaciones();
         if (reservacion == null || reservacion.isEmpty()){
-            return new ResponseEntity<>(new MensajeDTO("No hay reservaciones para mostrar."), HttpStatus.OK);
+            Map<String,Object> responseEmpty  =  new HashMap<>();
+            responseEmpty.put("mensaje", "No hay reservaciones Disponibles");
+            responseEmpty.put("reservaciones",reservacion);
+            return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
         } else {
             Map<String, Object> response = new HashMap<>();
             response.put("mensaje", "Lista de reservaciones obtenida exitosamente.");

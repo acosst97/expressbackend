@@ -34,7 +34,10 @@ public class VehiculoController {
      public ResponseEntity<?> listarVehiculos(){
          List<ListarVehiculosDTO> vehiculo = this.vSrv.listartVehiculos();
          if (vehiculo == null || vehiculo.isEmpty()){
-             return  new ResponseEntity<>(new MensajeDTO("No hay Vehiculos Registrados"),HttpStatus.OK);
+             Map<String,Object> responseEmpty  =  new HashMap<>();
+             responseEmpty.put("mensaje", "No hay vehiculos Disponibles");
+             responseEmpty.put("vehiculos",vehiculo);
+             return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
          }else{
              Map<String,Object> response  =  new HashMap<>();
              response.put("mensaje", "Consumo Exitoso");

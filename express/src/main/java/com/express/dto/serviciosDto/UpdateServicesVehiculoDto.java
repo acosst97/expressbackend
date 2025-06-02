@@ -1,18 +1,23 @@
-package com.express.model;
+package com.express.dto.serviciosDto;
 
-import jakarta.persistence.*;
+import com.express.model.ServicioVehiculos;
 
-@Entity
-@Table(name ="servicio_vehiculo")
-public class ServicioVehiculos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UpdateServicesVehiculoDto {
     private int idServicio;
     private String nombreServicio;
     private String valorServicio;
     private String descripcion;
-    @Column(columnDefinition = "LONGTEXT")
     private String images;
+
+
+    public UpdateServicesVehiculoDto(ServicioVehiculos sv) {
+        this.idServicio = sv.getIdServicio();
+        this.nombreServicio = sv.getNombreServicio();
+        this.valorServicio = sv.getValorServicio();
+        this.descripcion = sv.getDescripcion();
+        this.images = sv.getImages();
+    }
+
 
     public int getIdServicio() {
         return idServicio;

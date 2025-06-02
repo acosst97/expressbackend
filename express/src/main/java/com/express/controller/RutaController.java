@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/rutas")
+@CrossOrigin
 public class RutaController {
 
     @Autowired
@@ -31,7 +32,10 @@ public class RutaController {
     public ResponseEntity<?> listarRutas(){
         List<ListarRutasDTO> rutas = this.rutaS.listaRutas();
         if (rutas == null || rutas.isEmpty() ){
-         return new ResponseEntity<>(new MensajeDTO("No hay Rutas Disponibles"), HttpStatus.OK);
+            Map<String,Object> responseEmpty  =  new HashMap<>();
+            responseEmpty.put("mensaje", "No hay Rutas Disponibles");
+            responseEmpty.put("rutas",rutas);
+         return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
         }else{
             Map<String,Object> response  =  new HashMap<>();
             response.put("mensaje", "Consumo Exitoso");
@@ -40,7 +44,7 @@ public class RutaController {
         }
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/registrar")
     public ResponseEntity<?> crearRuta(@RequestBody RegistroRutaDTO registroRutaDTO) {
         return rutaS.registrarRuta(registroRutaDTO);
     }

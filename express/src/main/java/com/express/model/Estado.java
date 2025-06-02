@@ -14,19 +14,22 @@ import java.util.List;
 public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEstado;
-
+    @Column(name = "id_estado")
+    private Integer idEstado;
+    @Column(name = "nombre_estado", nullable = false, length = 45)
     private String nombreEstado;
+
+    @Column(name = "descripcion_estado", length = 45)
     private String descripcionEstado;
 
     @OneToMany(mappedBy = "estado")
     private List<Ruta> rutas;
 
-    public int getIdEstado() {
+    public Integer getIdEstado() {
         return idEstado;
     }
 
-    public void setIdEstado(int idEstado) {
+    public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
     }
 

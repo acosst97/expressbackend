@@ -7,17 +7,17 @@ public class UpdateRutaDTO {
     private String nombreRuta;
     private String origenRuta;
     private String destinoRuta;
-    private String estadoRuta;
+
     private Integer idEstado;
     private int reservacionesIdReservaciones;
 
-    public UpdateRutaDTO(int idRuta, String codRuta, String nombreRuta, String origenRuta, String destinoRuta, String estadoRuta, Integer idEstado, Integer reservacionesIdReservaciones) {
+    public UpdateRutaDTO(int idRuta, String codRuta, String nombreRuta, String origenRuta, String destinoRuta, Integer idEstado, Integer reservacionesIdReservaciones) {
         this.idRuta = idRuta;
         this.codRuta = codRuta;
         this.nombreRuta = nombreRuta;
         this.origenRuta = origenRuta;
         this.destinoRuta = destinoRuta;
-        this.estadoRuta = estadoRuta;
+
         this.idEstado = idEstado;
         this.reservacionesIdReservaciones = reservacionesIdReservaciones;
     }
@@ -62,13 +62,7 @@ public class UpdateRutaDTO {
         this.destinoRuta = destinoRuta;
     }
 
-    public String getEstadoRuta() {
-        return estadoRuta;
-    }
 
-    public void setEstadoRuta(String estadoRuta) {
-        this.estadoRuta = estadoRuta;
-    }
 
     public Integer getIdEstado() {
         return idEstado;

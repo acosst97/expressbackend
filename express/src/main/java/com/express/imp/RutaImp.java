@@ -47,27 +47,24 @@ public class RutaImp implements RutaService {
         if (estadoOptional.isEmpty()) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el estado con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-
         Reservacion reservacion = null;
-        if (RegistroRutaDTO.getReservacionesIdReservaciones() != null) {
+        if (registroRutaDTO.getReservacionesIdReservaciones() != null) {
             Optional<Reservacion> reservacionOptional = reservacionRepo.findById(registroRutaDTO.getReservacionesIdReservaciones());
             if (reservacionOptional.isEmpty()) {
                 return new ResponseEntity<>(new MensajeDTO("No se encontró la reservación con el ID proporcionado."), HttpStatus.NOT_FOUND);
             }
             reservacion = reservacionOptional.get();
         }
-
         Ruta nuevaRuta = new Ruta();
         nuevaRuta.setCodRuta(registroRutaDTO.getCodRuta());
         nuevaRuta.setNombreRuta(registroRutaDTO.getNombreRuta());
         nuevaRuta.setOrigenRuta(registroRutaDTO.getOrigenRuta());
         nuevaRuta.setDestinoRuta(registroRutaDTO.getDestinoRuta());
-        nuevaRuta.setEstadoRuta(registroRutaDTO.getEstadoRuta());
         nuevaRuta.setEstado(estadoOptional.get());
         nuevaRuta.setReservacion(reservacion);
 
         Ruta rutaGuardada = rutaR.save(nuevaRuta);
-        return new ResponseEntity<>(new MensajeDTO("Ruta creada exitosamente."), HttpStatus.CREATED);
+        return new ResponseEntity<>(new MensajeDTO("Consumo exitoso"), HttpStatus.CREATED);
     }
 
 

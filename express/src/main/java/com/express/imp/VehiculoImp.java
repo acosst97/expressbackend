@@ -61,7 +61,6 @@ public class VehiculoImp implements VehiculoService {
         if (!vehiculo.getUsuario().getDocumento().equals(actualizarVehiculoDTO.getDocumento())) {
             return new ResponseEntity<>(new MensajeDTO("No tienes permiso para actualizar este vehículo."), HttpStatus.FORBIDDEN);
         }
-
         vehiculo.setCapacidad(actualizarVehiculoDTO.getCapacidad());
         vehiculo.setDocumentacion(actualizarVehiculoDTO.getDocumentacion());
         vehiculo.setPlacaVehiculo(actualizarVehiculoDTO.getPlacaVehiculo());

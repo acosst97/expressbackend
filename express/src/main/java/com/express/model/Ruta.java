@@ -14,17 +14,24 @@ import java.util.List;
 public class Ruta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idRuta;
+    @Column(name = "id_ruta")
+    private Integer idRuta;
 
+    @Column(name = "cod_ruta", nullable = false, length = 45) // nullable = false si no permite nulos
     private String codRuta;
+    @Column(name = "activa", nullable = false)
+    private boolean activa;
+    @Column(name = "nombre_ruta", nullable = false, length = 45)
     private String nombreRuta;
 
+    @Column(name = "origen_ruta", nullable = false, length = 45)
     private String origenRuta;
+
+    @Column(name = "destino_ruta", nullable = false, length = 45)
     private String destinoRuta;
-    private  String estadoRuta;
 
     @ManyToOne
-    @JoinColumn(name = "id_estado")
+    @JoinColumn(name = "estado_id_estado")
     private Estado estado;
     @OneToOne
     @JoinColumn(name = "reservaciones_id_reservaciones", unique = true) // Columna de clave foránea en la tabla 'ruta'
@@ -39,12 +46,21 @@ public class Ruta {
         this.idRuta = idRuta;
     }
 
+
     public String getCodRuta() {
         return codRuta;
     }
 
     public void setCodRuta(String codRuta) {
         this.codRuta = codRuta;
+    }
+
+    public Boolean getActiva() {
+        return activa;
+    }
+
+    public void setActiva(Boolean activa) {
+        this.activa = activa;
     }
 
     public String getNombreRuta() {
@@ -71,13 +87,7 @@ public class Ruta {
         this.destinoRuta = destinoRuta;
     }
 
-    public String getEstadoRuta() {
-        return estadoRuta;
-    }
 
-    public void setEstadoRuta(String estadoRuta) {
-        this.estadoRuta = estadoRuta;
-    }
 
     public Estado getEstado() {
         return estado;
@@ -94,4 +104,7 @@ public class Ruta {
     public void setReservacion(Reservacion reservacion) {
         this.reservacion = reservacion;
     }
+
+
+
 }

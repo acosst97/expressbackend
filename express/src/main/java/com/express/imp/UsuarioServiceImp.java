@@ -44,11 +44,11 @@ public class UsuarioServiceImp implements UsuarioService {
         usuario.setCorreo(registroUsuarioDTO.getCorreo());
         usuario.setPassword(passwordEncoder.encode(registroUsuarioDTO.getPassword()));
 
-        // Obtener el rol por defecto ();
-        Optional<Rol> rolClienteOptional = rolRepository.findByNombreRol("CLIENTE"); // Cambia "CLIENTE" al nombre de tu rol por defecto
+
+        Optional<Rol> rolClienteOptional = rolRepository.findByNombreRol("CLIENTE");
         if (rolClienteOptional.isPresent()) {
             Rol rolCliente = rolClienteOptional.get();
-            usuario.setRoles(List.of(rolCliente)); // Asigna la lista de roles al usuario
+            usuario.setRoles(List.of(rolCliente));
         } else {
 
             // Podrías lanzar una excepción personalizada o loggear un error.
@@ -65,8 +65,6 @@ public class UsuarioServiceImp implements UsuarioService {
                 .collect(Collectors.toList());
     }
 
-
-
     @Override
     public Usuario validarUsuario(String correo, String password) {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
@@ -77,11 +75,9 @@ public class UsuarioServiceImp implements UsuarioService {
     }
    //Crud
 
-
     @Override
     public ResponseEntity<?> updateUsuario(UpdateUsuarioDTO updateUsuarioDTO) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(updateUsuarioDTO.getIdUsuario());
-
         if (usuarioOptional.isEmpty()){
             return new ResponseEntity<>(new MensajeDTO("No se encontró el Usuario con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
@@ -108,20 +104,16 @@ public class UsuarioServiceImp implements UsuarioService {
         if (usuarioOptional.isEmpty()) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el Usuario con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-
         if (rolOptional.isEmpty()) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el Rol con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-
         Usuario usuario = usuarioOptional.get();
         Rol nuevoRol = rolOptional.get();
-
         List<Rol> roles = new ArrayList<>(usuario.getRoles());
-
-
-        if (!roles.contains(nuevoRol)) {
-            roles.add(nuevoRol);
-            usuario.setRoles(roles);
+        boolean yaAsignado = usuario.getRoles().stream()
+                .anyMatch(r -> r.getIdRol().equals(nuevoRol.getIdRol()));
+        if (!yaAsignado) {
+            usuario.getRoles().add(nuevoRol);
             usuarioRepository.save(usuario);
             return new ResponseEntity<>(new MensajeDTO("Rol asignado al usuario exitosamente."), HttpStatus.OK);
         } else {
@@ -135,6 +127,17 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
 
-
+    public  UsuarioLoginResponseDTO convertirAUsuarioLoginDTO(Usuario usuario) {
+        UsuarioLoginResponseDTO dto = new UsuarioLoginResponseDTO();
+        dto.setIdUsuario(usuario.getIdUsuario());
+        dto.setPrimerNombre(usuario.getPrimerNombre());
+        dto.setPrimerApellido(usuario.getPrimerApellido());
+        dto.setCorreo(usuario.getCorreo());
+        dto.setRoles(usuario.getRoles()
+                .stream()
+                .map(Rol::getNombreRol)
+                .collect(Collectors.toList()));
+        return dto;
+    }
 
 }

@@ -1,9 +1,6 @@
 package com.express.services;
 
-import com.express.dto.ListarUsuarioDto;
-import com.express.dto.RegistroUsuarioDto;
-import com.express.dto.UpdateUsuarioDTO;
-import com.express.dto.UpdateUsuarioRolDTO;
+import com.express.dto.*;
 import com.express.model.Usuario;
 import org.springframework.http.ResponseEntity;
 

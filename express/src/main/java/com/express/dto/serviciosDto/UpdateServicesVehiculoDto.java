@@ -18,6 +18,8 @@ public class UpdateServicesVehiculoDto {
         this.images = sv.getImages();
     }
 
+    public UpdateServicesVehiculoDto() {
+    }
 
     public int getIdServicio() {
         return idServicio;

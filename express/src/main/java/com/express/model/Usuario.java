@@ -1,5 +1,6 @@
 package com.express.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,12 +34,13 @@ public class Usuario {
     @Column(name="reset_password_token")
     private String resetPasswordToken;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "usuario_has_rol",
             joinColumns = { @JoinColumn(name = "usuario_id_usuario") },
             inverseJoinColumns = { @JoinColumn(name = "_id_rol") }
     )
+    @JsonManagedReference
     private List<Rol> roles;
 
     @OneToMany(mappedBy = "usuario")

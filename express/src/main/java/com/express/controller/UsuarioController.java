@@ -2,9 +2,12 @@ package com.express.controller;
 
 import com.express.dto.*;
 import com.express.dto.rol.ListaRolDTO;
+import com.express.dto.rol.RegistroRolDTO;
 import com.express.imp.RolImp;
+import com.express.imp.UsuarioServiceImp;
 import com.express.model.Rol;
 import com.express.model.Usuario;
+import com.express.services.RolService;
 import com.express.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +26,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
+    private RolService rolService;
+    @Autowired
     RolImp rolImp;
+    @Autowired
+    UsuarioServiceImp uImp;
     @PostMapping("/registro")
     public ResponseEntity<MensajeDTO> registrarUsuario(@RequestBody RegistroUsuarioDto registroUsuarioDTO) {
         try {
@@ -38,7 +45,8 @@ public class UsuarioController {
     public ResponseEntity<?> loginUsuario(@RequestBody LoginUsuarioDTO loginUsuarioDTO) {
         Usuario usuarioValidado = usuarioService.validarUsuario(loginUsuarioDTO.getCorreo(), loginUsuarioDTO.getPassword());
         if (usuarioValidado != null) {
-            return new ResponseEntity<>(usuarioValidado, HttpStatus.OK);
+            UsuarioLoginResponseDTO responseDTO = uImp.convertirAUsuarioLoginDTO(usuarioValidado);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         } else {
              return new ResponseEntity<>(new MensajeDTO("Correo o contraseña incorrectos"), HttpStatus.UNAUTHORIZED);
         }
@@ -79,6 +87,9 @@ public class UsuarioController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-
+    @PostMapping("/registroRol")
+    public ResponseEntity<?> registrarRol(@RequestBody RegistroRolDTO registroRolDTO) {
+        return rolService.registrarRol(registroRolDTO);
+    }
 
 }

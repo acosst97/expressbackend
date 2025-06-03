@@ -7,7 +7,6 @@ public class UpdateUsuarioRolDTO {
     public Integer getIdUsuario() {
         return idUsuario;
     }
-
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }

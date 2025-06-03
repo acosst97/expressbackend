@@ -31,19 +31,16 @@ public class ListarUsuarioDto {
         this.correo = usuario.getCorreo();
        this.telefono = usuario.getTelefono();
        this.experiencia = usuario.getExperiencia();
-        // Asumiendo que cada usuario tiene un único rol (como parece en tu entidad Rol)
+
         if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
-            Rol primerRol = usuario.getRoles().get(0); // Tomamos el primer rol
+            Rol primerRol = usuario.getRoles().get(0);
             this.rolId = primerRol.getIdRol();
             this.rolNombre = primerRol.getNombreRol();
         } else {
             this.rolId = null;
             this.rolNombre = null;
         }
-
     }
-  //  private RolDto rol;
-
 
     public Integer getIdUsuario() {
         return idUsuario;

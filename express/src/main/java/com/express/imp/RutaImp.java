@@ -37,8 +37,17 @@ public class RutaImp implements RutaService {
     }
 
     @Override
-    public ResponseEntity<?> deleteById(int IdRuta) {
-        return null;
+    public ResponseEntity<?> deleteById(int idRuta) {
+            Optional<Ruta> rutaOptional = rutaR.findById(idRuta);
+            if (rutaOptional.isEmpty()) {
+                return new ResponseEntity<>(new MensajeDTO("No se encontró la ruta con este Id."), HttpStatus.NOT_FOUND);
+            }
+            Ruta rutaAEliminar = rutaOptional.get();
+            if (!rutaAEliminar.getReservaciones().isEmpty()) {
+                return new ResponseEntity<>(new MensajeDTO("Error, ruta con reservaciones asociadas."), HttpStatus.CONFLICT);
+            }
+            rutaR.delete(rutaAEliminar);
+            return new ResponseEntity<>(new MensajeDTO("Ruta eliminada exitosamente."), HttpStatus.OK);
     }
 
     @Override
@@ -47,22 +56,20 @@ public class RutaImp implements RutaService {
         if (estadoOptional.isEmpty()) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el estado con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-        Reservacion reservacion = null;
+      /* Reservacion reservacion = null;
         if (registroRutaDTO.getReservacionesIdReservaciones() != null) {
             Optional<Reservacion> reservacionOptional = reservacionRepo.findById(registroRutaDTO.getReservacionesIdReservaciones());
             if (reservacionOptional.isEmpty()) {
                 return new ResponseEntity<>(new MensajeDTO("No se encontró la reservación con el ID proporcionado."), HttpStatus.NOT_FOUND);
             }
             reservacion = reservacionOptional.get();
-        }
+        }*/
         Ruta nuevaRuta = new Ruta();
         nuevaRuta.setCodRuta(registroRutaDTO.getCodRuta());
         nuevaRuta.setNombreRuta(registroRutaDTO.getNombreRuta());
         nuevaRuta.setOrigenRuta(registroRutaDTO.getOrigenRuta());
         nuevaRuta.setDestinoRuta(registroRutaDTO.getDestinoRuta());
         nuevaRuta.setEstado(estadoOptional.get());
-        nuevaRuta.setReservacion(reservacion);
-
         Ruta rutaGuardada = rutaR.save(nuevaRuta);
         return new ResponseEntity<>(new MensajeDTO("Consumo exitoso"), HttpStatus.CREATED);
     }

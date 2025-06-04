@@ -27,7 +27,8 @@ public class Reservacion {
     @OneToMany(mappedBy = "reservacion") //es el nombre del atributo en la clase vehiculo que mapea esta relación
     private List<Vehiculo> vehiculo;
 
-    @OneToOne(mappedBy = "reservacion") // Indica que la relación ya está gestionada por el atributo 'reservacion' en Ruta
+    @ManyToOne // Reservacion tiene una Ruta
+    @JoinColumn(name = "ruta_id") // Columna de clave foránea en la tabla 'reservacion'
     private Ruta ruta;
 
     public int getIdReservaciones() {

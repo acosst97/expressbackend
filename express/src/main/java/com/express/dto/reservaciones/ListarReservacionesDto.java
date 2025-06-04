@@ -1,5 +1,6 @@
 package com.express.dto.reservaciones;
 
+import com.express.dto.rutas.RutaBasicaDTO;
 import com.express.model.Reservacion;
 import com.express.model.Vehiculo;
 
@@ -11,10 +12,11 @@ public class ListarReservacionesDto {
     private String  valorPago;
     private String fechaReserva;
     private String fechaViaje;
-    private List<Integer> capacidad;
+
     private Vehiculo vehiculo;
     private Integer idReservaciones;
     private Integer idUsuario;
+    private RutaBasicaDTO ruta;
     private String documentoUsuario;
     private String primerNombre;
     private String primerApellido;
@@ -29,6 +31,9 @@ public class ListarReservacionesDto {
             this.documentoUsuario = reservacion.getUsuario().getDocumento();
             this.primerNombre = reservacion.getUsuario().getPrimerNombre();
             this.primerApellido = reservacion.getUsuario().getPrimerApellido();
+        }
+        if (reservacion.getRuta() != null) {
+            this.ruta = new RutaBasicaDTO(reservacion.getRuta());
         }
     }
 
@@ -63,15 +68,6 @@ public class ListarReservacionesDto {
     public void setFechaViaje(String fechaViaje) {
         this.fechaViaje = fechaViaje;
     }
-
-    public List<Integer> getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(List<Integer> capacidad) {
-        this.capacidad = capacidad;
-    }
-
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -118,5 +114,13 @@ public class ListarReservacionesDto {
 
     public void setPrimerApellido(String primerApellido) {
         this.primerApellido = primerApellido;
+    }
+
+    public RutaBasicaDTO getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(RutaBasicaDTO ruta) {
+        this.ruta = ruta;
     }
 }

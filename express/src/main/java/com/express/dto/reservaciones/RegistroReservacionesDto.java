@@ -13,14 +13,17 @@ public class RegistroReservacionesDto {
     private String fechaReserva;
     private String fechaViaje;
     private String documentoUsuario;
+    private int idRuta;
 
-    public void registrarReservacionDto(String detallePago,String valorPago, String fechaReserva,String fechaViaje,String documentoUsuario){
-       this.detallePago = detallePago;
-       this.valorPago = valorPago;
-       this.fechaReserva = fechaReserva;
-       this.fechaViaje = fechaViaje;
-       this.documentoUsuario = documentoUsuario;
+    public RegistroReservacionesDto(String detallePago, String valorPago, String fechaReserva, String fechaViaje, String documentoUsuario, int idRuta) {
+        this.detallePago = detallePago;
+        this.valorPago = valorPago;
+        this.fechaReserva = fechaReserva;
+        this.fechaViaje = fechaViaje;
+        this.documentoUsuario = documentoUsuario;
+        this.idRuta = idRuta;
     }
+
 
     public String getDetallePago() {
         return detallePago;
@@ -60,5 +63,13 @@ public class RegistroReservacionesDto {
 
     public void setDocumentoUsuario(String documentoUsuario) {
         this.documentoUsuario = documentoUsuario;
+    }
+
+    public int getIdRuta() {
+        return idRuta;
+    }
+
+    public void setIdRuta(int idRuta) {
+        this.idRuta = idRuta;
     }
 }

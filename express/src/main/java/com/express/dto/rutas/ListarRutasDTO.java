@@ -1,23 +1,26 @@
 package com.express.dto.rutas;
 
+import com.express.dto.reservaciones.ReservacionBasicaDTO;
 import com.express.model.Estado;
 import com.express.model.Reservacion;
 import com.express.model.Ruta;
 import lombok.Data;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 public class ListarRutasDTO {
+
     private int idRuta;
     private String codRuta;
     private Boolean activa;
     private String nombreRuta;
     private String origenRuta;
     private String destinoRuta;
-    private Estado estado;
-    private String nombreEstado;
-    private String fechaReserva;
-    private String FechaViaje;
-    private String valorPago;
+
+
+    private List<ReservacionBasicaDTO>reservaciones;
     public  ListarRutasDTO(Ruta ruta){
         this.idRuta = ruta.getIdRuta();
         this.codRuta = ruta.getCodRuta();
@@ -28,11 +31,12 @@ public class ListarRutasDTO {
         if (ruta.getEstado() != null){
             ruta.getEstado().getNombreEstado();
         }
-        if (ruta.getReservacion() != null){
-            ruta.getReservacion().getFechaReserva();
-            ruta.getReservacion().getFechaViaje();
-            ruta.getReservacion().getValorPago();
-            ruta.getReservacion().getUsuario().getDocumento();
+        if (ruta.getReservaciones() != null && !ruta.getReservaciones().isEmpty()) {
+            this.reservaciones = ruta.getReservaciones().stream()
+                    .map(ReservacionBasicaDTO::new) // Convierte cada Reservacion a ReservacionBasicaDTO
+                    .collect(Collectors.toList());
+        } else {
+            this.reservaciones = List.of(); // Devuelve una lista vacía si no hay reservaciones
         }
     }
 
@@ -76,52 +80,20 @@ public class ListarRutasDTO {
         this.destinoRuta = destinoRuta;
     }
 
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public String getNombreEstado() {
-        return nombreEstado;
-    }
-
-    public void setNombreEstado(String nombreEstado) {
-        this.nombreEstado = nombreEstado;
-    }
-
-    public String getFechaReserva() {
-        return fechaReserva;
-    }
-
-    public void setFechaReserva(String fechaReserva) {
-        this.fechaReserva = fechaReserva;
-    }
-
-    public String getFechaViaje() {
-        return FechaViaje;
-    }
-
-    public void setFechaViaje(String fechaViaje) {
-        FechaViaje = fechaViaje;
-    }
-
-    public String getValorPago() {
-        return valorPago;
-    }
-
-    public void setValorPago(String valorPago) {
-        this.valorPago = valorPago;
-    }
-
     public Boolean getActiva() {
         return activa;
     }
 
     public void setActiva(Boolean activa) {
         this.activa = activa;
+    }
+
+    public List<ReservacionBasicaDTO> getReservaciones() {
+        return reservaciones;
+    }
+
+    public void setReservaciones(List<ReservacionBasicaDTO> reservaciones) {
+        this.reservaciones = reservaciones;
     }
 }
 

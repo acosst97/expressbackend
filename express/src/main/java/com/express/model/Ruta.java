@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -33,9 +34,8 @@ public class Ruta {
     @ManyToOne
     @JoinColumn(name = "estado_id_estado")
     private Estado estado;
-    @OneToOne
-    @JoinColumn(name = "reservaciones_id_reservaciones", unique = true) // Columna de clave foránea en la tabla 'ruta'
-    private Reservacion reservacion;
+    @OneToMany(mappedBy = "ruta", cascade = CascadeType.ALL, orphanRemoval = true) // Ruta tiene muchas Reservaciones
+    private List<Reservacion> reservaciones = new ArrayList<>(); // Inicializar la lista
 
 
     public int getIdRuta() {
@@ -97,14 +97,30 @@ public class Ruta {
         this.estado = estado;
     }
 
-    public Reservacion getReservacion() {
-        return reservacion;
+    public boolean isActiva() {
+        return activa;
     }
 
-    public void setReservacion(Reservacion reservacion) {
-        this.reservacion = reservacion;
+    public void setActiva(boolean activa) {
+        this.activa = activa;
     }
 
+    public List<Reservacion> getReservaciones() {
+        return reservaciones;
+    }
 
+    public void setReservaciones(List<Reservacion> reservaciones) {
+        this.reservaciones = reservaciones;
+    }
+    // Método de ayuda para añadir una reservación a la lista
+    public void addReservacion(Reservacion reservacion) {
+        this.reservaciones.add(reservacion);
+        reservacion.setRuta(this); // Establecer la referencia inversa
+    }
 
+    // Método de ayuda para remover una reservación de la lista
+    public void removeReservacion(Reservacion reservacion) {
+        this.reservaciones.remove(reservacion);
+        reservacion.setRuta(null); // Remover la referencia inversa
+    }
 }

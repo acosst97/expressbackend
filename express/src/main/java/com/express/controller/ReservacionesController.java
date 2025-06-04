@@ -40,13 +40,13 @@ public class ReservacionesController {
         }
     }
 
-    @PostMapping("/registrarReservacion")
+    @PostMapping("/registre")
     public  ResponseEntity<?> register (@RequestBody RegistroReservacionesDto registroReservacionesDto){
         return  rService.registrarReservacion(registroReservacionesDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarReservacion(@PathVariable Integer id) {
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminarReservacion(@PathVariable("id") int id) {
         return rService.eliminarReservacion(id);
     }
 }

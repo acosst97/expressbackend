@@ -12,7 +12,7 @@ public interface RutaService {
 
     List<ListarRutasDTO> listaRutas();
 
-     public ResponseEntity<?> deleteById(int IdRuta);
+     public ResponseEntity<?> deleteById(int idRuta);
     ResponseEntity<?> registrarRuta(RegistroRutaDTO registroRutaDTO);
     ResponseEntity<?> updateRuta(UpdateRutaDTO updateRutaDTO);
 }

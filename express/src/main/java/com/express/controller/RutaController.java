@@ -54,8 +54,8 @@ public class RutaController {
         return rutaS.updateRuta(updateRutaDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarRuta(@PathVariable int id) {
+    @DeleteMapping("/eliminar/{id}") // Ejemplo de endpoint para eliminar
+    public ResponseEntity<?> eliminarRuta(@PathVariable("id") int id) {
         return rutaS.deleteById(id);
     }
 

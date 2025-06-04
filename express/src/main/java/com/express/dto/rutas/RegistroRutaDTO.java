@@ -14,16 +14,15 @@ public class RegistroRutaDTO {
     private String destinoRuta;
 
     private Integer idEstado;
-    private Integer reservacionesIdReservaciones;
 
-    public RegistroRutaDTO(int idRuta, String codRuta, String nombreRuta, String origenRuta, String destinoRuta, String estadoRuta, Integer idEstado, Integer reservacionesIdReservaciones) {
+
+    public RegistroRutaDTO(int idRuta, String codRuta, String nombreRuta, String origenRuta, String destinoRuta, String estadoRuta, Integer idEstado) {
         this.idRuta = idRuta;
         this.codRuta = codRuta;
         this.nombreRuta = nombreRuta;
         this.origenRuta = origenRuta;
         this.destinoRuta = destinoRuta;
         this.idEstado = idEstado;
-        this.reservacionesIdReservaciones = reservacionesIdReservaciones;
     }
 
     public int getIdRuta() {
@@ -74,11 +73,4 @@ public class RegistroRutaDTO {
         this.idEstado = idEstado;
     }
 
-    public Integer getReservacionesIdReservaciones() {
-        return reservacionesIdReservaciones;
-    }
-
-    public void setReservacionesIdReservaciones(Integer reservacionesIdReservaciones) {
-        this.reservacionesIdReservaciones = reservacionesIdReservaciones;
-    }
 }

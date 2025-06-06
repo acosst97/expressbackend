@@ -71,8 +71,7 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<!--  lookup parent from repository -->
-
+			<version>5.4.1</version>
 		</dependency>
 	</dependencies>
 

@@ -4,7 +4,6 @@ import com.express.model.ServicioVehiculos;
 import com.express.model.Vehiculo;
 
 public class ListarServicioVehiculoDto {
-
     private int idServicio;
     private String nombreServicio;
     private String valorServicio;

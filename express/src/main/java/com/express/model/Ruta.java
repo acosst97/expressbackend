@@ -34,8 +34,8 @@ public class Ruta {
     @ManyToOne
     @JoinColumn(name = "estado_id_estado")
     private Estado estado;
-    @OneToMany(mappedBy = "ruta", cascade = CascadeType.ALL, orphanRemoval = true) // Ruta tiene muchas Reservaciones
-    private List<Reservacion> reservaciones = new ArrayList<>(); // Inicializar la lista
+    @OneToMany(mappedBy = "ruta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservacion> reservaciones = new ArrayList<>();
 
 
     public int getIdRuta() {

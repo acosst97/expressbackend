@@ -14,6 +14,6 @@ public interface ServicioVehiculoService {
     ServicioVehiculos registrarServicioVehiculo(CrearServicioVehiculoDto crearServicioVehiculoDto);
     ResponseEntity<?> updateServiceVehicle(UpdateServicesVehiculoDto updateServicesVehiculoDto);
     boolean deleteServicio(int idServicio);
-    //public void updateServicio();
+
 
 }

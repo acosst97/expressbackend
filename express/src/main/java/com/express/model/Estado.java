@@ -56,4 +56,6 @@ public class Estado {
     public void setRutas(List<Ruta> rutas) {
         this.rutas = rutas;
     }
+
+
 }

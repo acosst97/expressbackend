@@ -3,23 +3,28 @@ package com.express.imp;
 import com.express.dto.*;
 import com.express.dto.rol.DisassociateRolUsuarioDTO;
 import com.express.dto.rol.DisassociateRolUsuarioResponseDTO;
+import com.express.dto.rutas.RutaExcelDTO;
+import com.express.model.Estado;
 import com.express.model.Rol;
+import com.express.model.Ruta;
 import com.express.model.Usuario;
+import com.express.repository.EstadoRepository;
 import com.express.repository.RolRepository;
 import com.express.repository.UsuarioRepository;
 
 import com.express.services.UsuarioService;
 import jakarta.transaction.Transactional;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -193,6 +198,8 @@ public class UsuarioServiceImp implements UsuarioService {
                 HttpStatus.OK
         );
     }
+
+
 
     public  UsuarioLoginResponseDTO convertirAUsuarioLoginDTO(Usuario usuario) {
         UsuarioLoginResponseDTO dto = new UsuarioLoginResponseDTO();

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,5 +60,28 @@ public class RutaController {
         return rutaS.deleteById(id);
     }
 
+    /**
+     * Endpoint para cargar rutas masivamente desde un archivo Excel.
+     *
+     * @param file El archivo Excel ( MultipartFile ).
+     * @return ResponseEntity con el resultado de la operación de carga.
+     */
+    @PostMapping("/upload-excel")
+    public ResponseEntity<Map<String, Object>> uploadRutasExcel(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            Map<String, Object> response = Map.of(
+                    "success", false,
+                    "message", "Por favor, selecciona un archivo para subir."
+            );
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        Map<String, Object> result = rutaS.uploadRutasFromExcel(file);
 
+        if (Boolean.TRUE.equals(result.get("success"))) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            // Puedes ajustar el HttpStatus según el tipo de error (ej. BAD_REQUEST, INTERNAL_SERVER_ERROR)
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

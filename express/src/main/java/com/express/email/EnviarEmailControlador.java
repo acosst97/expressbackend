@@ -15,7 +15,6 @@ public class EnviarEmailControlador {
  /*   @PostMapping("/enviaremail")
     public String enviarcorreo(@RequestParam("correo") String correo , @RequestParam("subject")String subject,@RequestParam("body") String body) {
         String mensaje= body + "\n\n  correo de contacto;" +subject+"\n asunto"  + "\n email" + correo;
-
         enviarEmailImp.enviaremail("pepelolaso64@gmail.com", correo, subject,body);
         return "respqrs";
     }*/

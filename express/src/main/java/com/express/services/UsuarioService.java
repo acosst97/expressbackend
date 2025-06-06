@@ -5,8 +5,10 @@ import com.express.dto.rol.DisassociateRolUsuarioDTO;
 import com.express.dto.rol.DisassociateRolUsuarioResponseDTO;
 import com.express.model.Usuario;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UsuarioService {
     Usuario registrarUsuario(RegistroUsuarioDto registroUsuarioDto);
@@ -21,4 +23,5 @@ public interface UsuarioService {
     ResponseEntity<?> actualizarRolUsuario(UpdateUsuarioRolDTO updateUsuarioRolDTO);
     Usuario buscarBYId(Integer idusuario);
     ResponseEntity<DisassociateRolUsuarioResponseDTO> disassociateRolFromUser(DisassociateRolUsuarioDTO disassociateRolUsuarioDTO);
+
 }

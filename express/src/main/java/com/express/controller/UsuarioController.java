@@ -1,6 +1,8 @@
 package com.express.controller;
 
 import com.express.dto.*;
+import com.express.dto.rol.DisassociateRolUsuarioDTO;
+import com.express.dto.rol.DisassociateRolUsuarioResponseDTO;
 import com.express.dto.rol.ListaRolDTO;
 import com.express.dto.rol.RegistroRolDTO;
 import com.express.imp.RolImp;
@@ -91,5 +93,16 @@ public class UsuarioController {
     public ResponseEntity<?> registrarRol(@RequestBody RegistroRolDTO registroRolDTO) {
         return rolService.registrarRol(registroRolDTO);
     }
+    /**
+     * Endpoint para desasociar un rol de un usuario.
+     * Requiere un DisassociateRolUsuarioDTO con idUsuario y idRol.
+     * @param disassociateRolUsuarioDTO DTO que contiene el ID del usuario y el ID del rol a desasociar.
+     * @return ResponseEntity con DisassociateRolUsuarioResponseDTO indicando el resultado.
+     */
+    @PostMapping("/desasociar-rol")
+    public ResponseEntity<DisassociateRolUsuarioResponseDTO> desasociarRol(@RequestBody DisassociateRolUsuarioDTO disassociateRolUsuarioDTO) {
+        return usuarioService.disassociateRolFromUser(disassociateRolUsuarioDTO);
+    }
+
 
 }

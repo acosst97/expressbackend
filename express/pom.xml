@@ -68,6 +68,12 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>6.1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<!--  lookup parent from repository -->
+
+		</dependency>
 	</dependencies>
 
 	<build>

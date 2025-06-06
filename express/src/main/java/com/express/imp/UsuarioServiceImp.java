@@ -1,6 +1,8 @@
 package com.express.imp;
 
 import com.express.dto.*;
+import com.express.dto.rol.DisassociateRolUsuarioDTO;
+import com.express.dto.rol.DisassociateRolUsuarioResponseDTO;
 import com.express.model.Rol;
 import com.express.model.Usuario;
 import com.express.repository.RolRepository;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -126,6 +129,70 @@ public class UsuarioServiceImp implements UsuarioService {
         return null;
     }
 
+    @Override
+    @Transactional
+    public ResponseEntity<DisassociateRolUsuarioResponseDTO> disassociateRolFromUser(DisassociateRolUsuarioDTO disassociateRolUsuarioDTO) {
+        Integer idUsuario = disassociateRolUsuarioDTO.getIdUsuario();
+        Integer idRol = disassociateRolUsuarioDTO.getIdRol();
+        // 1. Validaciones de entrada
+        if (idUsuario == null) {
+            return new ResponseEntity<>(
+                    new DisassociateRolUsuarioResponseDTO(false, "El ID de usuario no puede ser nulo.", null, idRol),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+        if (idRol == null) {
+            return new ResponseEntity<>(
+                    new DisassociateRolUsuarioResponseDTO(false, "El ID de rol no puede ser nulo.", idUsuario, null),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+        if (usuarioOptional.isEmpty()) {
+            return new ResponseEntity<>(
+                    new DisassociateRolUsuarioResponseDTO(false, "Usuario no encontrado con ID: " + idUsuario, idUsuario, idRol),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+        Usuario usuario = usuarioOptional.get();
+
+        Optional<Rol> rolOptional = rolRepository.findById(idRol);
+        if (rolOptional.isEmpty()) {
+            return new ResponseEntity<>(
+                    new DisassociateRolUsuarioResponseDTO(false, "Rol no encontrado con ID: " + idRol, idUsuario, idRol),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+        Rol rolToDisassociate = rolOptional.get();
+        // 4. Validar si el usuario realmente tiene el rol asociado
+        // Utiliza un iterador para remover de forma segura mientras se itera
+        boolean rolFoundAndRemoved = false;
+        if (usuario.getRoles() != null) {
+            Iterator<Rol> rolIterator = usuario.getRoles().iterator();
+            while (rolIterator.hasNext()) {
+                Rol currentRol = rolIterator.next();
+                if (currentRol.getIdRol().equals(rolToDisassociate.getIdRol())) {
+                    rolIterator.remove();
+                    rolFoundAndRemoved = true;
+                    break;
+                }
+            }
+        }
+        if (!rolFoundAndRemoved) {
+            return new ResponseEntity<>(
+                    new DisassociateRolUsuarioResponseDTO(false, "El usuario (ID: " + idUsuario + ") no tiene el rol " + rolToDisassociate.getNombreRol() + " (ID: " + idRol + ") asociado.", idUsuario, idRol),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        // 5. Guardar el usuario actualizado
+        // Esto actualizará la tabla intermedia (usuario_has_rol) al eliminar la entrada.
+        usuarioRepository.save(usuario);
+        return new ResponseEntity<>(
+                new DisassociateRolUsuarioResponseDTO(true, "Rol '" + rolToDisassociate.getNombreRol() + "' (ID: " + idRol + ") desasociado exitosamente del usuario (ID: " + idUsuario + ").", idUsuario, idRol),
+                HttpStatus.OK
+        );
+    }
 
     public  UsuarioLoginResponseDTO convertirAUsuarioLoginDTO(Usuario usuario) {
         UsuarioLoginResponseDTO dto = new UsuarioLoginResponseDTO();
@@ -133,6 +200,7 @@ public class UsuarioServiceImp implements UsuarioService {
         dto.setPrimerNombre(usuario.getPrimerNombre());
         dto.setPrimerApellido(usuario.getPrimerApellido());
         dto.setCorreo(usuario.getCorreo());
+        dto.setTelefono(usuario.getTelefono());
         dto.setRoles(usuario.getRoles()
                 .stream()
                 .map(Rol::getNombreRol)

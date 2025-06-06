@@ -1,6 +1,8 @@
 package com.express.services;
 
 import com.express.dto.*;
+import com.express.dto.rol.DisassociateRolUsuarioDTO;
+import com.express.dto.rol.DisassociateRolUsuarioResponseDTO;
 import com.express.model.Usuario;
 import org.springframework.http.ResponseEntity;
 
@@ -18,7 +20,5 @@ public interface UsuarioService {
 
     ResponseEntity<?> actualizarRolUsuario(UpdateUsuarioRolDTO updateUsuarioRolDTO);
     Usuario buscarBYId(Integer idusuario);
-
-
-
+    ResponseEntity<DisassociateRolUsuarioResponseDTO> disassociateRolFromUser(DisassociateRolUsuarioDTO disassociateRolUsuarioDTO);
 }

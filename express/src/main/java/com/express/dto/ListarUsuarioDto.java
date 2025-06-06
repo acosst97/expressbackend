@@ -1,5 +1,6 @@
 package com.express.dto;
 
+import com.express.dto.rol.RolDto;
 import com.express.model.Rol;
 import com.express.model.Usuario;
 import lombok.Getter;
@@ -19,8 +20,7 @@ public class ListarUsuarioDto {
     private String telefono;
     private String correo;
     private int experiencia;
-    private Integer rolId;     // Nuevo campo para el ID del rol
-    private String rolNombre;  // Nuevo campo para el nombre del rol
+    private List<RolDto> roles; // Cambiado a lista
     public ListarUsuarioDto(Usuario usuario) {
         this.idUsuario = usuario.getIdUsuario();
         this.documento = usuario.getDocumento();
@@ -29,17 +29,13 @@ public class ListarUsuarioDto {
         this.primerApellido = usuario.getPrimerApellido();
         this.segApellido = usuario.getSegApellido();
         this.correo = usuario.getCorreo();
-       this.telefono = usuario.getTelefono();
-       this.experiencia = usuario.getExperiencia();
+        this.telefono = usuario.getTelefono();
+        this.experiencia = usuario.getExperiencia();
 
-        if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
-            Rol primerRol = usuario.getRoles().get(0);
-            this.rolId = primerRol.getIdRol();
-            this.rolNombre = primerRol.getNombreRol();
-        } else {
-            this.rolId = null;
-            this.rolNombre = null;
-        }
+        this.roles = usuario.getRoles()
+                .stream()
+                .map(rol -> new RolDto(rol.getIdRol(), rol.getNombreRol()))
+                .collect(Collectors.toList());
     }
 
     public Integer getIdUsuario() {
@@ -98,20 +94,12 @@ public class ListarUsuarioDto {
         this.correo = correo;
     }
 
-    public Integer getRolId() {
-        return rolId;
+    public List<RolDto> getRoles() {
+        return roles;
     }
 
-    public void setRolId(Integer rolId) {
-        this.rolId = rolId;
-    }
-
-    public String getRolNombre() {
-        return rolNombre;
-    }
-
-    public void setRolNombre(String rolNombre) {
-        this.rolNombre = rolNombre;
+    public void setRoles(List<RolDto> roles) {
+        this.roles = roles;
     }
 
     public String getTelefono() {

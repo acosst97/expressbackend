@@ -33,7 +33,7 @@ public class EstadoController {
         List<ListarEstado> estados = this.srv.listarEstados();
         if (estados == null || estados.isEmpty() ){
             Map<String,Object> responseEmpty  =  new HashMap<>();
-            responseEmpty.put("mensaje", "No hay Rutas Disponibles");
+            responseEmpty.put("mensaje", "No hay Estados Disponibles");
             responseEmpty.put("estados",estados);
             return new ResponseEntity<>(responseEmpty, HttpStatus.OK);
         }else{

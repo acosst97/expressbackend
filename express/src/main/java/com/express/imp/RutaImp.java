@@ -15,6 +15,7 @@ import com.express.services.RutaService;
 import jakarta.transaction.Transactional;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,20 +64,18 @@ public class RutaImp implements RutaService {
         if (estadoOptional.isEmpty()) {
             return new ResponseEntity<>(new MensajeDTO("No se encontró el estado con el ID proporcionado."), HttpStatus.NOT_FOUND);
         }
-      /* Reservacion reservacion = null;
-        if (registroRutaDTO.getReservacionesIdReservaciones() != null) {
-            Optional<Reservacion> reservacionOptional = reservacionRepo.findById(registroRutaDTO.getReservacionesIdReservaciones());
-            if (reservacionOptional.isEmpty()) {
-                return new ResponseEntity<>(new MensajeDTO("No se encontró la reservación con el ID proporcionado."), HttpStatus.NOT_FOUND);
-            }
-            reservacion = reservacionOptional.get();
-        }*/
+        Estado estadoAsociado = estadoOptional.get(); // Obtenemos el objeto Estado
         Ruta nuevaRuta = new Ruta();
         nuevaRuta.setCodRuta(registroRutaDTO.getCodRuta());
         nuevaRuta.setNombreRuta(registroRutaDTO.getNombreRuta());
         nuevaRuta.setOrigenRuta(registroRutaDTO.getOrigenRuta());
         nuevaRuta.setDestinoRuta(registroRutaDTO.getDestinoRuta());
-        nuevaRuta.setEstado(estadoOptional.get());
+        nuevaRuta.setEstado(estadoAsociado);
+        if ("ACTIVO".equalsIgnoreCase(estadoAsociado.getNombreEstado())) {
+            nuevaRuta.setActiva(true);
+        } else {
+            nuevaRuta.setActiva(false);
+        }
         Ruta rutaGuardada = rutaR.save(nuevaRuta);
         return new ResponseEntity<>(new MensajeDTO("Consumo exitoso"), HttpStatus.CREATED);
     }
@@ -106,7 +105,7 @@ public class RutaImp implements RutaService {
         }
 
         try (InputStream inputStream = file.getInputStream()) {
-            Workbook workbook = new HSSFWorkbook(inputStream); // Para .xlsx, usar HSSFWorkbook para .xls
+            Workbook workbook = new XSSFWorkbook(inputStream); // Para .xlsx, usar HSSFWorkbook para .xls
             Sheet sheet = workbook.getSheetAt(0); // Obtener la primera hoja
 
             // Asumiendo que la primera fila es la cabecera

@@ -1,5 +1,6 @@
 package com.express.controller;
 
+import com.express.dto.MensajeDTO;
 import com.express.dto.ResetContrasenaDTO;
 import com.express.dto.SolicitudRecuperacionDTO;
 import com.express.imp.EnviarEmailImp;
@@ -30,7 +31,7 @@ public class AuthController {
     public ResponseEntity<?> solicitarRecuperacion(@RequestBody SolicitudRecuperacionDTO solicitud) {
         Usuario usuario = usuarioRepository.findByCorreo(solicitud.getCorreo());
         if (usuario == null) {
-            return new ResponseEntity<>("Correo electrónico no encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MensajeDTO("Correo electrónico no encontrado"), HttpStatus.NOT_FOUND);
         }
         // Genera token
         String token = UUID.randomUUID().toString();
@@ -44,33 +45,28 @@ public class AuthController {
         String subject = "Recuperación de Contraseña";
         String body = "Hola" + nombreUsuario + " " + apellido +  " \n\nHas solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:\n\n" + recoveryLink + "\n\nSi no solicitaste esto, puedes ignorar este correo.";
         enviarEmailImp.enviarEmail("pepelolaso64@gmail.com", usuario.getCorreo(), subject, body);
-        return new ResponseEntity<>("Se ha enviado un enlace de recuperación a tu correo electrónico", HttpStatus.OK);
+        return new ResponseEntity<>(new MensajeDTO("Se ha enviado un enlace a tu correo electrónico"), HttpStatus.OK);
     }
     @PostMapping("/reset-password")
     public ResponseEntity<?> restablecerContrasena(@RequestBody ResetContrasenaDTO resetContrasenaDTO) {
         Usuario usuario = usuarioRepository.findByResetPasswordToken(resetContrasenaDTO.getToken());
-
         if (usuario == null) {
-            return new ResponseEntity<>("Token de recuperación inválido o expirado", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensajeDTO("Token de recuperación inválido o expirado"), HttpStatus.BAD_REQUEST);
         }
         String nuevaContrasena = resetContrasenaDTO.getNuevaContrasena();
         String contraseñaEncriptada = passwordEncoder.encode(nuevaContrasena);
         usuario.setPassword(contraseñaEncriptada);
         usuario.setResetPasswordToken(null);
         usuarioRepository.save(usuario);
-        return new ResponseEntity<>("Contraseña restablecida exitosamente", HttpStatus.OK);
+        return new ResponseEntity<>(new MensajeDTO("Contraseña restablecida exitosamente"), HttpStatus.OK);
     }
     @GetMapping("/reset-password")
     public ResponseEntity<?> mostrarFormularioRestablecimiento(@RequestParam("token") String token) {
         Usuario usuario = usuarioRepository.findByResetPasswordToken(token);
-
         if (usuario == null) {
-            return new ResponseEntity<>("Token de recuperación inválido o expirado", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensajeDTO("Token de recuperación inválido o expirado"), HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>("Token válido. Por favor, procede a cambiar tu contraseña.", HttpStatus.OK);
+        return new ResponseEntity<>(new MensajeDTO("Token válido. Por favor, procede a cambiar tu contraseña."), HttpStatus.OK);
     }
-
-
 
 }

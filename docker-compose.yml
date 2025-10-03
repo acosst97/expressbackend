@@ -16,7 +16,7 @@ services:
       - db_data:/var/lib/mysql
 
   backend:
-    build: .
+    build: express
     container_name: viajes-backend
     restart: always
     depends_on:
